@@ -25,7 +25,7 @@ namespace NGMainPlugin.Commands
 
             if (arguments.Count() < 1)
             {
-                response = "Uessage: .durchsage <Your Message Here>";
+                response = "Usage: .durchsage <Your Message Here>";
                 return false;
             }
             if (player == null)

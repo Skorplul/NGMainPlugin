@@ -30,7 +30,7 @@ namespace NGMainPlugin.Commands
             }
             if (player == null)
             {
-                response = "ERROR: Player = null";
+                response = "ERROR: The player is null, please contact an admin/developer!";
                 return false;
             }
             if (!player.IsScp)
@@ -40,7 +40,7 @@ namespace NGMainPlugin.Commands
             }
             if (Main.SwapTimeout == null)
             {
-                response = "Timeout time hasn't been set properly";
+                response = "Timeout time hasn't been set properly, please contact an admin/developer!";
                 return false;
             }
             if (Round.ElapsedTime > Main.SwapTimeout)
@@ -75,12 +75,12 @@ namespace NGMainPlugin.Commands
             }
             if (GetSwap(arguments.Array[1]) == RoleTypeId.None)
             {
-                response = "Not a valid SCP";
+                response = "Not a valid SCP!";
                 return false;
             }
             if (player.Role == GetSwap(arguments.Array[1]))
             {
-                response = "You can't swap to the SCP you already are!";
+                response = "You can't swap to the same SCP you already are!";
                 return false;
             }
             foreach (Player ply in Player.List)
@@ -89,7 +89,7 @@ namespace NGMainPlugin.Commands
                 {
                     if (ply.Role == GetSwap(arguments.Array[1]))
                     {
-                        response = "Someone is this SCP already";
+                        response = "Someone is this SCP already!";
                         return false;
                     }
                 }
@@ -97,7 +97,7 @@ namespace NGMainPlugin.Commands
             }
 
             player.Role.Set(GetSwap(arguments.Array[1]));
-            response = $"You are now SCP{arguments.Array[1]}";
+            response = $"You are now SCP{arguments.Array[1]}!";
             return true;
         }
     }
