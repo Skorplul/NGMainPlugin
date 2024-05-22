@@ -35,6 +35,8 @@ namespace NGMainPlugin.Commands.Test
             
             if (player.CheckPermission(PlayerPermissions.GameplayData) == true)
             {
+                response = "just for testing :D";
+                return true;
             }
 
             response = "No permission";
