@@ -12,7 +12,6 @@ namespace NGMainPlugin
 {
     public class EventHandlers
     {
-        private readonly Main plugin;
         public static int PcCurentLvl;
 
         public void OnRoundStarted()
@@ -24,7 +23,7 @@ namespace NGMainPlugin
 
         public void OnTriggeringTesla(TriggeringTeslaEventArgs ev)
         {
-            if (plugin.Config.NoTesTuts) 
+            if (Main.TeslaTuts) 
                 ev.IsAllowed = false;
         }
 

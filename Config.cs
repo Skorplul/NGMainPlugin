@@ -10,7 +10,7 @@ namespace NGMainPlugin
         public bool Debug { get; set; }
 
         [Description("Should Tutorials be ignored by teslas? Default: false")]
-        public bool NoTesTuts { get; set; } = false;
+        public static bool NoTesTuts { get; set; } = false;
 
         [Description("Should you be able to swap SCPs only one time a round? Default: true")]
         public static bool SingleSwap { get; set; } = true;
