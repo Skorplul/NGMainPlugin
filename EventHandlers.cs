@@ -7,6 +7,7 @@ using Exiled.API.Features;
 using Exiled.Events.EventArgs.Scp079;
 using Exiled.Events.EventArgs.Player;
 using PluginAPI.Events;
+using PlayerRoles;
 
 namespace NGMainPlugin
 {
@@ -23,8 +24,13 @@ namespace NGMainPlugin
 
         public void OnTriggeringTesla(TriggeringTeslaEventArgs ev)
         {
-            if (Main.TeslaTuts) 
-                ev.IsAllowed = false;
+            if (ev.Player.Role == RoleTypeId.Tutorial)
+            {
+                if (Main.TeslaTuts)
+                {
+                    ev.IsAllowed = false;
+                }
+            }
         }
 
         public void OnSCP079GainingLvl(GainingLevelEventArgs ev)
