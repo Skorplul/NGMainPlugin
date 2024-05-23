@@ -11,8 +11,13 @@ namespace NGMainPlugin.Commands
     public class SCPSwap : ParentCommand
     {
         public static List<string> swaped = new List<string>();
+        public TimeSpan NoSwapTime = TimeSpan.FromSeconds(Plugin.Config.ScpSwapTimeout);
+        public static Main Plugin { get; set; }
 
-        public SCPSwap() => LoadGeneratedCommands();
+        public SCPSwap()
+        {
+            LoadGeneratedCommands();
+        }
 
         public override string Command { get; } = "scpswap";
 
@@ -41,12 +46,12 @@ namespace NGMainPlugin.Commands
                 response = "You can only use this as SCP.";
                 return false;
             }
-            if (Main.SwapTimeout == null)
+            if (TimeSpan.FromSeconds(Plugin.Config.ScpSwapTimeout) == null)
             {
                 response = "Timeout time hasn't been set properly, please contact an admin/developer!";
                 return false;
             }
-            if (Round.ElapsedTime > Main.SwapTimeout)
+            if (Round.ElapsedTime > NoSwapTime)
             {
                 response = "You can no longer swap, sorry but you're too late.";
                 return false;
@@ -97,7 +102,7 @@ namespace NGMainPlugin.Commands
                     }
                 }
             }
-            if (Main.OneTimeSwap)
+            if (Plugin.Config.SingleSwap)
             {
                 if (swaped.Contains(player.UserId))
                 {

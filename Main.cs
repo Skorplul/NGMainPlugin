@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Server = Exiled.Events.Handlers.Server;
 using Player = Exiled.Events.Handlers.Player;
 using Map = Exiled.Events.Handlers.Map;
 using SCP079 = Exiled.Events.Handlers.Scp079;
+using CommandSystem;
+using NGMainPlugin.Commands;
 
 namespace NGMainPlugin
 {
@@ -21,19 +21,21 @@ namespace NGMainPlugin
         public override Version RequiredExiledVersion { get; } = new Version(8, 5, 0);
 
         public EventHandlers EventHandlers;
-        public  static TimeSpan SwapTimeout = Config.ScpSwapTimeout;
-        public static bool OneTimeTalk = Config.Single079Cassi;
-        public static bool OneTimeSwap = Config.SingleSwap;
-        public static bool TeslaTuts = Config.NoTesTuts;
+        public static Main Instance { get; private set; }
 
         public override void OnEnabled()
         {
-            EventHandlers = new EventHandlers();
+            base.OnEnabled();
+
+            Instance = this;
+            EventHandlers = new EventHandlers(this);
             Player.TriggeringTesla += EventHandlers.OnTriggeringTesla;
             SCP079.GainingLevel += EventHandlers.OnSCP079GainingLvl;
             Server.RoundStarted += EventHandlers.OnRoundStarted;
 
-            base.OnEnabled();
+            SCPSwap.Plugin = this;
+            Durchsage.Plugin = this;
+
         }
 
         public override void OnDisabled()
@@ -42,6 +44,7 @@ namespace NGMainPlugin
             SCP079.GainingLevel -= EventHandlers.OnSCP079GainingLvl;
             Server.RoundStarted -= EventHandlers.OnRoundStarted;
             EventHandlers = null;
+            Instance = null;
 
             base.OnDisabled();
         }

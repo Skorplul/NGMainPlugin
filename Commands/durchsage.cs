@@ -13,7 +13,12 @@ namespace NGMainPlugin.Commands
     {
         public static List<string> spoke = new List<string>();
 
-        public Durchsage() => LoadGeneratedCommands();
+        public static Main Plugin { get; set; }
+
+        public Durchsage()
+        {
+            LoadGeneratedCommands();
+        }
 
         public override string Command { get; } = "durchsage";
 
@@ -47,7 +52,7 @@ namespace NGMainPlugin.Commands
                 response = "You need a higher access Tier! (3)";
                 return false;
             }
-            if (Main.OneTimeTalk)
+            if (Plugin.Config.Single079Cassi)
             {
                 if (spoke.Contains(player.UserId))
                 {

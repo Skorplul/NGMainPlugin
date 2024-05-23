@@ -13,7 +13,14 @@ namespace NGMainPlugin
 {
     public class EventHandlers
     {
+        private readonly Main plugin;
+
         public static int PcCurentLvl;
+
+        public EventHandlers (Main plugin)
+        {
+            this.plugin = plugin;
+        }
 
         public void OnRoundStarted()
         {
@@ -26,7 +33,7 @@ namespace NGMainPlugin
         {
             if (ev.Player.Role == RoleTypeId.Tutorial)
             {
-                if (Main.TeslaTuts)
+                if (plugin.Config.NoTesTuts)
                 {
                     ev.IsAllowed = false;
                 }
