@@ -22,6 +22,8 @@ namespace NGMainPlugin
 
         public EventHandlers EventHandlers;
         public  static TimeSpan SwapTimeout = Config.ScpSwapTimeout;
+        public static bool OneTimeTalk = Config.Single079Cassi;
+        public static bool OneTimeSwap = Config.SingleSwap;
 
         public override void OnEnabled()
         {

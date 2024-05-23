@@ -18,6 +18,8 @@ namespace NGMainPlugin
         public void OnRoundStarted()
         {
             PcCurentLvl = 1;
+            Commands.SCPSwap.swaped.Clear();
+            Commands.Durchsage.spoke.Clear();
         }
 
         public void OnTriggeringTesla(TriggeringTeslaEventArgs ev)

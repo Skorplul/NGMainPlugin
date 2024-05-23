@@ -3,12 +3,15 @@ using System;
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
 using PlayerRoles;
+using System.Collections.Generic;
 
 namespace NGMainPlugin.Commands
 {
     [CommandHandler(typeof(ClientCommandHandler))]
     public class SCPSwap : ParentCommand
     {
+        public static List<string> swaped = new List<string>();
+
         public SCPSwap() => LoadGeneratedCommands();
 
         public override string Command { get; } = "scpswap";
@@ -93,8 +96,17 @@ namespace NGMainPlugin.Commands
                         return false;
                     }
                 }
-
             }
+            if (Main.OneTimeSwap)
+            {
+                if (swaped.Contains(player.UserId))
+                {
+                    response = "You already swaped in this round!";
+                    return false;
+                }
+            }
+
+            swaped.Add(player.UserId);
 
             player.Role.Set(GetSwap(arguments.Array[1]));
             response = $"You are now SCP{arguments.Array[1]}!";

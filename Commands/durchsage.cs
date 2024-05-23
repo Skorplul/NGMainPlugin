@@ -3,12 +3,16 @@ using System;
 using Exiled.API.Features;
 using PlayerRoles;
 using System.Linq;
+using System.Collections.Generic;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace NGMainPlugin.Commands
 {
     [CommandHandler(typeof(ClientCommandHandler))]
     public class Durchsage : ParentCommand
     {
+        public static List<string> spoke = new List<string>();
+
         public Durchsage() => LoadGeneratedCommands();
 
         public override string Command { get; } = "durchsage";
@@ -42,6 +46,14 @@ namespace NGMainPlugin.Commands
             {
                 response = "You need a higher access Tier! (3)";
                 return false;
+            }
+            if (Main.OneTimeTalk)
+            {
+                if (spoke.Contains(player.UserId))
+                {
+                    response = "You already used CASSI this round!";
+                    return false;
+                }
             }
 
             string msg = string.Join(" ", arguments.Skip(0));
