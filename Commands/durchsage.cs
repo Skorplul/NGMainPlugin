@@ -56,6 +56,7 @@ namespace NGMainPlugin.Commands
                 }
             }
 
+            spoke.Add(player.UserId);
             string msg = string.Join(" ", arguments.Skip(0));
             Cassie.Message("MESSAGE FROM SCP 0 7 9 . . " + msg, false, true, true);
 
