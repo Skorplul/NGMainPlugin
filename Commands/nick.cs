@@ -33,20 +33,13 @@ namespace NGMainPlugin.Commands
 
             if (arguments.Count() < 1)
             {
-                response = "Usage: .durchsage <Your Message Here>";
+                response = "Usage: .nick <Your New Nickname Here>";
                 return false;
             }
             if (player == null)
             {
                 response = "Player is null, contact an admin/developer!";
                 return false;
-            }
-            if (arguments.Array[1] == "remove")
-            {
-                player.DisplayNickname = null;
-
-                response = "Your custom nick has been removed!";
-                return true;
             }
 
             string NewName = string.Join("_", arguments.Skip(0));
