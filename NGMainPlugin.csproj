@@ -140,6 +140,7 @@
     <Compile Include="Commands\scpswap.cs" />
     <Compile Include="Commands\Test.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
