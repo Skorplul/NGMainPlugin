@@ -29,6 +29,7 @@ namespace NGMainPlugin
 
             Instance = this;
             EventHandlers = new EventHandlers(this);
+            Player.UsingItemCompleted += EventHandlers.OnTakingPainkiller;
             Player.TriggeringTesla += EventHandlers.OnTriggeringTesla;
             SCP079.GainingLevel += EventHandlers.OnSCP079GainingLvl;
             Server.RoundStarted += EventHandlers.OnRoundStarted;
@@ -43,6 +44,7 @@ namespace NGMainPlugin
             Player.TriggeringTesla -= EventHandlers.OnTriggeringTesla;
             SCP079.GainingLevel -= EventHandlers.OnSCP079GainingLvl;
             Server.RoundStarted -= EventHandlers.OnRoundStarted;
+            Player.TriggeringTesla -= EventHandlers.OnTriggeringTesla;
             EventHandlers = null;
             Instance = null;
 
