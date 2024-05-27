@@ -13,7 +13,7 @@ namespace NGMainPlugin
 {
     public class Main : Plugin<Config>
     {
-        public override string Author { get; } = "Skorp 1.0, mtf_alpha_one, Dashtiss";
+        public override string Author { get; } = "Skorp 1.0";
         public override string Name { get; } = "NGMainPlugin";
         public override string Prefix { get; } = "NGM";
         public override Version Version { get; } = new Version(0, 1, 0);

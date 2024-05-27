@@ -27,6 +27,16 @@ namespace NGMainPlugin
             EffectType.Flashed,
             EffectType.Ensnared
         };
+        public List<ItemType> PainItems = new List<ItemType>()
+        {
+            ItemType.Painkillers,
+            ItemType.AntiSCP207,
+            ItemType.KeycardFacilityManager,
+            ItemType.KeycardScientist,
+            ItemType.Medkit,
+            ItemType.SCP018,
+            ItemType.SCP207
+        };
 
         public EventHandlers (Main plugin)
         {
@@ -62,6 +72,11 @@ namespace NGMainPlugin
             {
                 return PainEffects[EffectListVal];
             }
+            ItemType GetItem(int ItemListVal)
+            {
+                return PainItems[ItemListVal];
+            }
+
             string GetEffString(EffectType SelEffect)
             {
                 switch (SelEffect)
@@ -82,18 +97,53 @@ namespace NGMainPlugin
                         return "Error";
                 }
             }
+            string GetItemString(ItemType SelItem)
+            {
+                switch (SelItem)
+                {
+                    case ItemType.Painkillers:
+                        return "Painkillers";
+                    case ItemType.AntiSCP207:
+                        return "Anti-SCP-207";
+                    case ItemType.KeycardFacilityManager:
+                        return "Facility Manager Keycard";
+                    case ItemType.KeycardScientist:
+                        return "Scientist Keycard";
+                    case ItemType.Medkit:
+                        return "Medkit";
+                    case ItemType.SCP018:
+                        return "SCP-018";
+                    case ItemType.SCP207:
+                        return "SCP-207";
+                    default:
+                        return "Error";
+                }
+            }
 
             if (ev.Item.Type == ItemType.Painkillers)
             {
-                int Durr = random.Next(5, 30);
-                int RandEff = random.Next(1, 7);
-                EffectType DoEffect = GetEff(RandEff);
-                string EffectString = GetEffString(DoEffect);
-                
-                ev.Player.ShowHint($"[<color=#FB045B>P</color><color=#F81353>a</color><color=#F5224B>i</color><color=#F23143>n</color><color=#EF403B>k</color><color=#EC4F33>i</color><color=#E95E2B>l</color><color=#E66D23>l</color><color=#E37C1B>e</color><color=#E08B13>r</color>]: You recieved <color=#f90000ff>{EffectString}</color> for <color=#f90000ff>{Durr}</color> seconds!"); 
-                ev.Player.EnableEffect(DoEffect, Durr, false);
-                
+                int Durr = random.Next(5, 15);
+                int RandEff = random.Next(0, 13);
 
+                if (RandEff <= 6)
+                {
+                    EffectType DoEffect = GetEff(RandEff);
+                    string EffectString = GetEffString(DoEffect);
+
+                    ev.Player.ShowHint($"[<color=#FB045B>P</color><color=#F81353>a</color><color=#F5224B>i</color><color=#F23143>n</color><color=#EF403B>k</color><color=#EC4F33>i</color><color=#E95E2B>l</color><color=#E66D23>l</color><color=#E37C1B>e</color><color=#E08B13>r</color>]: You recieved <color=#f90000ff>{EffectString}</color> for <color=#f90000ff>{Durr}</color> seconds!");
+                    ev.Player.EnableEffect(DoEffect, 10, Durr, false);
+                }
+                else if (RandEff >= 7)
+                {
+                    RandEff = RandEff - 7;
+
+                    ItemType DoItem = GetItem(RandEff);
+                    string ItemString = GetItemString(DoItem);
+
+                    ev.Player.ShowHint($"[<color=#FB045B>P</color><color=#F81353>a</color><color=#F5224B>i</color><color=#F23143>n</color><color=#EF403B>k</color><color=#EC4F33>i</color><color=#E95E2B>l</color><color=#E66D23>l</color><color=#E37C1B>e</color><color=#E08B13>r</color>]: You recieved <color=#f90000ff>{ItemString}</color>!");
+                    ev.Player.AddItem(DoItem);
+                }
+                
             }
         }
     }
