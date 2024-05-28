@@ -8,6 +8,7 @@ using Map = Exiled.Events.Handlers.Map;
 using SCP079 = Exiled.Events.Handlers.Scp079;
 using CommandSystem;
 using NGMainPlugin.Commands;
+using Exiled.CustomItems.API.Features;
 
 namespace NGMainPlugin
 {
@@ -27,6 +28,11 @@ namespace NGMainPlugin
         {
             base.OnEnabled();
 
+            Config.LoadItems();
+
+            Log.Debug("Registering items..");
+            CustomItem.RegisterItems(overrideClass: Config.ItemConfigs);
+
             Instance = this;
             EventHandlers = new EventHandlers(this);
             Player.UsingItemCompleted += EventHandlers.OnTakingPainkiller;
@@ -41,6 +47,8 @@ namespace NGMainPlugin
 
         public override void OnDisabled()
         {
+            CustomItem.UnregisterItems();
+
             Player.TriggeringTesla -= EventHandlers.OnTriggeringTesla;
             SCP079.GainingLevel -= EventHandlers.OnSCP079GainingLvl;
             Server.RoundStarted -= EventHandlers.OnRoundStarted;

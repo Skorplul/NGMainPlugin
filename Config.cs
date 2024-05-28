@@ -1,7 +1,10 @@
 ﻿using Exiled.API.Interfaces;
+using Exiled.API.Features;
 using Exiled.Events.Commands.Reload;
+using Exiled.Loader;
 using System;
 using System.ComponentModel;
+using System.IO;
 using YamlDotNet.Serialization;
 
 namespace NGMainPlugin
@@ -28,5 +31,37 @@ namespace NGMainPlugin
 
         [Description("Should SCP079 be able to use CASSI only once per round? Default: true")]
         public bool Single079Cassi { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets a value indicating what folder item configs will be stored in.
+        /// </summary>
+        public string ItemConfigFolder { get; set; } = Path.Combine(Paths.Configs, "CustomItems");
+
+        /// <summary>
+        /// Gets or sets a value indicating what file will be used for item configs.
+        /// </summary>
+        public string ItemConfigFile { get; set; } = "global.yml";
+
+        /// <summary>
+        /// Loads the item configs.
+        /// </summary>
+        public void LoadItems()
+        {
+            if (!Directory.Exists(ItemConfigFolder))
+                Directory.CreateDirectory(ItemConfigFolder);
+
+            string filePath = Path.Combine(ItemConfigFolder, ItemConfigFile);
+            Log.Info($"{filePath}");
+            if (!File.Exists(filePath))
+            {
+                ItemConfigs = new Configs.Items();
+                File.WriteAllText(filePath, Loader.Serializer.Serialize(ItemConfigs));
+            }
+            else
+            {
+                ItemConfigs = Loader.Deserializer.Deserialize<Configs.Items>(File.ReadAllText(filePath));
+                File.WriteAllText(filePath, Loader.Serializer.Serialize(ItemConfigs));
+            }
+        }
     }
 }
