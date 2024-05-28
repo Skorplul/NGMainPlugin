@@ -1,11 +1,19 @@
 ﻿using Exiled.API.Interfaces;
+using Exiled.Events.Commands.Reload;
 using System;
 using System.ComponentModel;
+using YamlDotNet.Serialization;
 
 namespace NGMainPlugin
 {
     public class Config : IConfig
     {
+        /// <summary>
+        /// Gets item Config settings.
+        /// </summary>
+        [YamlIgnore]
+        public Configs.Items ItemConfigs { get; private set; } = null!;
+
         public bool IsEnabled { get; set; } = true;
         public bool Debug { get; set; }
 
