@@ -13,6 +13,9 @@ using System.Linq;
 using Exiled.API.Features;
 using System.Text;
 using System.Threading.Tasks;
+using Exiled.API.Features.Components;
+using Exiled.API.Features.Pickups.Projectiles;
+using UnityEngine;
 
 namespace NGMainPlugin.Items
 {
@@ -118,6 +121,32 @@ namespace NGMainPlugin.Items
                 Log.Debug($"{Name}.{nameof(OnReloading)}: {ev.Player.Nickname} was unable to reload - No grenades in inventory.");
             }
         }
+        protected override void OnShooting(ShootingEventArgs ev)
+        {
+            ev.IsAllowed = false;
+
+            if (ev.Player.CurrentItem is Firearm firearm)
+                firearm.Ammo -= 1;
+
+            Vector3 pos = ev.Player.CameraTransform.TransformPoint(new Vector3(0.0715f, 0.0225f, 0.45f));
+            Projectile projectile;
+
+            switch (loadedGrenade)
+            {
+                case ProjectileType.Scp018:
+                    projectile = ev.Player.ThrowGrenade(ProjectileType.Scp018).Projectile;
+                    break;
+                case ProjectileType.Flashbang:
+                    projectile = ev.Player.ThrowGrenade(ProjectileType.Flashbang).Projectile;
+                    break;
+                default:
+                    projectile = ev.Player.ThrowGrenade(ProjectileType.FragGrenade).Projectile;
+                    break;
+            }
+
+            projectile.GameObject.AddComponent<CollisionHandler>().Init(ev.Player.GameObject, projectile.Base);
+        }
 
     }
 }
+
