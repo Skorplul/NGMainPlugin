@@ -6,6 +6,8 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using YamlDotNet.Serialization;
+using AudioSystem.Models.SoundConfigs;
+using System.Collections.Generic;
 
 namespace NGMainPlugin
 {
@@ -31,6 +33,24 @@ namespace NGMainPlugin
 
         [Description("Should SCP079 be able to use CASSI only once per round? Default: true")]
         public bool Single079Cassi { get; set; } = true;
+
+        public List<LocalSoundConfig> ListOfPossibeMusics { get; set; } = new List<LocalSoundConfig>()
+        {
+            new LocalSoundConfig()
+            {
+                SoundName = "test",
+                Volume = 25,
+                DummyName = "test",
+                Radius = 2f
+            },
+            new LocalSoundConfig()
+            {
+                SoundName = "test1",
+                Volume = 25,
+                DummyName = "test1",
+                Radius = 4f
+            },
+        };
 
         /// <summary>
         /// Gets or sets a value indicating what folder item configs will be stored in.

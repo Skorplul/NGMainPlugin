@@ -9,6 +9,7 @@ using Exiled.Events.EventArgs.Player;
 using PluginAPI.Events;
 using PlayerRoles;
 using Exiled.API.Enums;
+using MEC;
 
 namespace NGMainPlugin
 {
@@ -48,6 +49,9 @@ namespace NGMainPlugin
             PcCurentLvl = 1;
             Commands.SCPSwap.swaped.Clear();
             Commands.Durchsage.spoke.Clear();
+
+            foreach (Lift lift in (IEnumerable<Lift>)Lift.List)
+                Timing.RunCoroutine(Methods.CheckingPlayerLift(lift));
         }
 
         public void OnTriggeringTesla(TriggeringTeslaEventArgs ev)
