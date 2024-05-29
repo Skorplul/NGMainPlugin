@@ -1,11 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="C4Charge.cs" company="Joker119">
-// Copyright (c) Joker119. All rights reserved.
-// Licensed under the CC BY-SA 3.0 license.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace CustomItems.Items;
+﻿namespace NGMainPlugin.Items;
 
 using System;
 using System.Collections.Generic;
