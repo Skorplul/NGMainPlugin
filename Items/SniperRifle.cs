@@ -45,7 +45,7 @@ public class SniperRifle : CustomWeapon
         {
             new()
             {
-                Chance = 100,
+                Chance = 40,
                 Location = SpawnLocationType.InsideHid,
             },
             new()

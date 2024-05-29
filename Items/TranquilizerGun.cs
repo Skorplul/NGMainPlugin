@@ -51,12 +51,12 @@ public class TranquilizerGun : CustomWeapon
         {
             new()
             {
-                Chance = 50,
+                Chance = 30,
                 Location = SpawnLocationType.InsideGr18,
             },
             new()
             {
-                Chance = 80,
+                Chance = 70,
                 Location = SpawnLocationType.Inside173Armory,
             },
         },
