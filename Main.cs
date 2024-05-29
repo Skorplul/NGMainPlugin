@@ -9,6 +9,7 @@ using SCP079 = Exiled.Events.Handlers.Scp079;
 using CommandSystem;
 using NGMainPlugin.Commands;
 using Exiled.CustomItems.API.Features;
+using Exiled.Events.Features;
 
 namespace NGMainPlugin
 {
@@ -35,6 +36,7 @@ namespace NGMainPlugin
 
             Instance = this;
             EventHandlers = new EventHandlers(this);
+
             Player.UsingItemCompleted += EventHandlers.OnTakingPainkiller;
             Player.TriggeringTesla += EventHandlers.OnTriggeringTesla;
             SCP079.GainingLevel += EventHandlers.OnSCP079GainingLvl;
@@ -52,7 +54,7 @@ namespace NGMainPlugin
             Player.TriggeringTesla -= EventHandlers.OnTriggeringTesla;
             SCP079.GainingLevel -= EventHandlers.OnSCP079GainingLvl;
             Server.RoundStarted -= EventHandlers.OnRoundStarted;
-            Player.TriggeringTesla -= EventHandlers.OnTriggeringTesla;
+            Player.UsingItemCompleted -= EventHandlers.OnTakingPainkiller;
             EventHandlers = null;
             Instance = null;
 
