@@ -1,4 +1,5 @@
-﻿using NGMainPlugin.Items;
+﻿using CustomItems.Items;
+using NGMainPlugin.Items;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,12 +12,36 @@ namespace NGMainPlugin.Configs
     public class Items
     {
         /// <summary>
-        /// Gets the list of emp greanades.
+        /// Gets the list of the Grenade Launcher.
         /// </summary>
-        [Description("The list of an Item")]
+        [Description("Grenade Launcher Settings")]
         public List<GrenadeLauncher> GrenadeLauncher { get; private set; } = new()
         {
             new GrenadeLauncher(),
+        };
+
+        [Description("C4 Settings")]
+        public List<C4Charge> C4 { get; private set; } = new()
+        {
+            new C4Charge(),
+        };
+
+        [Description("SCP-1499 Settings")]
+        public List<Scp1499> Scp1499 { get; private set; } = new()
+        {
+            new Scp1499(),
+        };
+
+        [Description("Sniper Settings")]
+        public List<SniperRifle> SniperRifles { get; private set; } = new()
+        {
+            new SniperRifle(),
+        };
+
+        [Description("Betäubungs Pistole Settings")]
+        public List<TranquilizerGun> TranquilizerGuns { get; private set; } = new()
+        {
+            new TranquilizerGun(),
         };
     }
 }
