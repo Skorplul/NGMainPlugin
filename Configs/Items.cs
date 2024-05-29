@@ -1,5 +1,4 @@
-﻿using CustomItems.Items;
-using NGMainPlugin.Items;
+﻿using NGMainPlugin.Items;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
