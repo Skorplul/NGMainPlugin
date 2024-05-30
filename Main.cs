@@ -6,10 +6,9 @@ using Server = Exiled.Events.Handlers.Server;
 using Player = Exiled.Events.Handlers.Player;
 using Map = Exiled.Events.Handlers.Map;
 using SCP079 = Exiled.Events.Handlers.Scp079;
-using CommandSystem;
-using NGMainPlugin.Commands;
 using Exiled.CustomItems.API.Features;
-using Exiled.Events.Features;
+using HarmonyLib;
+using NGMainPlugin.Commands;
 
 namespace NGMainPlugin
 {
@@ -23,12 +22,16 @@ namespace NGMainPlugin
         public override Version RequiredExiledVersion { get; } = new Version(8, 5, 0);
 
         public EventHandlers EventHandlers;
+        public LobbySystem.Handler LobbySystemHandler;
+
         public static Main Instance { get; private set; }
+        private Harmony Harmony { get; set; } = new Harmony("LobbySystem");
 
         public override void OnEnabled()
         {
-            base.OnEnabled();
+            
 
+            this.Harmony.PatchAll();
             Config.LoadItems();
 
             Log.Debug("Registering items..");
@@ -36,27 +39,38 @@ namespace NGMainPlugin
 
             Instance = this;
             EventHandlers = new EventHandlers(this);
+            LobbySystemHandler = new LobbySystem.Handler();
 
             Player.UsingItemCompleted += EventHandlers.OnTakingPainkiller;
             Player.TriggeringTesla += EventHandlers.OnTriggeringTesla;
             SCP079.GainingLevel += EventHandlers.OnSCP079GainingLvl;
             Server.RoundStarted += EventHandlers.OnRoundStarted;
+            Server.WaitingForPlayers += LobbySystemHandler.OnWaitingForPlayers;
+            Player.Verified += LobbySystemHandler.OnVerified;
 
             SCPSwap.Plugin = this;
             Durchsage.Plugin = this;
 
+            base.OnEnabled();
         }
 
         public override void OnDisabled()
         {
             CustomItem.UnregisterItems();
+            this.Harmony.UnpatchAll();
 
             Player.TriggeringTesla -= EventHandlers.OnTriggeringTesla;
             SCP079.GainingLevel -= EventHandlers.OnSCP079GainingLvl;
             Server.RoundStarted -= EventHandlers.OnRoundStarted;
             Player.UsingItemCompleted -= EventHandlers.OnTakingPainkiller;
+            Server.WaitingForPlayers -= LobbySystemHandler.OnWaitingForPlayers;
+            Player.Verified -= LobbySystemHandler.OnVerified;
+
             EventHandlers = null;
             Instance = null;
+            LobbySystemHandler = null;
+            SCPSwap.Plugin = null;
+            Durchsage.Plugin = null;
 
             base.OnDisabled();
         }

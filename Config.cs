@@ -8,7 +8,8 @@ using System.IO;
 using YamlDotNet.Serialization;
 using AudioSystem.Models.SoundConfigs;
 using System.Collections.Generic;
-
+using UnityEngine;
+using Exiled.API.Enums;
 namespace NGMainPlugin
 {
     public class Config : IConfig
@@ -83,5 +84,24 @@ namespace NGMainPlugin
                 File.WriteAllText(filePath, Loader.Serializer.Serialize(ItemConfigs));
             }
         }
+        [Description("LobbySystem")]
+
+        public double LobbyTime { get; set; } = 30.0;
+
+        public int MinimumPlayers { get; set; } = 2;
+
+        [Description("Edit the text shown")]
+        public string TextShown { get; set; } = "<size=27>│ %status% │ <b>SERVER NAME</b>  │ <color=red>%playercount%/%maxplayers%</color> Inmates Waiting │</size>";
+
+        public string PausedStatus { get; set; } = "<color=red>\uD83D\uDFE5</color> Lobby Paused";
+
+        public string WaitingStatus { get; set; } = "<color=yellow>\uD83D\uDFE8</color> Waiting for Players";
+
+        public string StartingStatus { get; set; } = "<color=green>\uD83D\uDFE9</color> Starting in %countdown% Seconds";
+
+        public RoomType SpawnRoom { get; set; }
+
+        public Vector3 SpawnPosition { get; set; } = new Vector3(0.0f, 995.6f, -8f);
+
     }
 }
