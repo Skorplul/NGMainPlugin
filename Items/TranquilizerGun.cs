@@ -67,6 +67,13 @@ public class TranquilizerGun : CustomWeapon
 
     /// <inheritdoc/>
     public override float Damage { get; set; }
+    
+    /*
+    /// <summary>
+    /// Gets or sets the ability to reload the weappon.
+    /// </summary>
+    public bool IsReloadable { get; set; } = false;
+    */
 
     /// <summary>
     /// Gets or sets a value indicating whether or not SCPs should be resistant to tranquilizers. (Being resistant gives them a chance to not be tranquilized when shot).
@@ -115,7 +122,7 @@ public class TranquilizerGun : CustomWeapon
         Exiled.Events.Handlers.Scp096.Enraging -= OnDeniableEvent;
         Exiled.Events.Handlers.Scp096.AddingTarget -= OnDeniableEvent;
         Exiled.Events.Handlers.Scp939.PlacingAmnesticCloud -= OnDeniableEvent;
-        Exiled.Events.Handlers.Player.VoiceChatting -= OnDeniableEvent;
+        Exiled.Events.Handlers.Player.VoiceChatting -= OnDeniableEvent;;
         activeTranqs.Clear();
         tranquilizedPlayers.Clear();
         Timing.KillCoroutines($"{nameof(TranquilizerGun)}-{Id}-reducer");
@@ -145,7 +152,7 @@ public class TranquilizerGun : CustomWeapon
         base.OnHurting(ev);
 
         if (ev.Attacker == ev.Player)
-            return;
+            return;        
 
         if (ev.Player.Role.Team == Team.SCPs)
         {
@@ -292,5 +299,10 @@ public class TranquilizerGun : CustomWeapon
             if (activeTranqs.Contains(eP.Player))
                 ev.IsAllowed = false;
         }
+    }
+
+    protected override void OnReloading(ReloadingWeaponEventArgs ev)
+    {
+        ev.IsAllowed = false;
     }
 }

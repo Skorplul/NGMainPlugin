@@ -10,11 +10,11 @@ namespace NGMainPlugin.LobbySystem
     [CommandHandler(typeof(GameConsoleCommandHandler))]
     public class LockCommand : ICommand
     {
-        public string Command => "lock";
+        public string Command => "locklobby";
 
         public string Description => "Locks/unlocks the lobby!";
 
-        public string[] Aliases => new string[0];
+        public string[] Aliases { get; } = new string[] { "llock" };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {

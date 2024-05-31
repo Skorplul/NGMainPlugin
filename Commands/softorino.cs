@@ -7,7 +7,6 @@ using CommandSystem.Commands.Shared;
 namespace NGMainPlugin.Commands.Test
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    [CommandHandler(typeof(GameConsoleCommandHandler))]
     public class Softorino : ParentCommand
     {
         public Softorino() => LoadGeneratedCommands();
