@@ -139,6 +139,7 @@
     <Compile Include="Commands\nickremove.cs" />
     <Compile Include="Commands\scpswap.cs" />
     <Compile Include="Commands\softorino.cs" />
+    <Compile Include="Commands\stuck.cs" />
     <Compile Include="Commands\Test.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Configs\Items.cs" />
