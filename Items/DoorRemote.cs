@@ -14,6 +14,9 @@ using Firearm = Exiled.API.Features.Items.Firearm;
 using FirearmPickup = InventorySystem.Items.Firearms.FirearmPickup;
 using System.ComponentModel;
 using Exiled.Events.EventArgs.Player;
+using LiteDB;
+using UnityEngine;
+using System.Linq;
 
 namespace NGMainPlugin.Items
 {
@@ -104,6 +107,12 @@ namespace NGMainPlugin.Items
             base.UnsubscribeEvents();
         }
 
+        protected override void OnHurting(HurtingEventArgs ev)
+        {
+            ev.IsAllowed = false;
+            base.OnHurting(ev);
+        }
+
         protected override void OnAcquired(Player player, Item item, bool displayMessage)
         {
             if(item is Firearm firearm)
@@ -126,6 +135,36 @@ namespace NGMainPlugin.Items
             ev.IsAllowed = false;
             ev.Player.ShowHint("You can't reload, this item reloads it's self with time!", 7);
             base.OnReloading(ev);
+        }
+
+        protected override void OnShot(ShotEventArgs ev)
+        {
+            // Perform a raycast to determine what the shot hit
+            Physics.Raycast(ev.Player.CameraTransform.position, ev.Player.CameraTransform.forward, out RaycastHit hit, Mathf.Infinity);
+            
+            // Try to get the Door component from the hit object
+            Door door = hit.transform.GetComponent<Door>();
+
+            // If the hit object is a door
+            if (door != null)
+                {
+                 // Check if the door is already in the list
+                 if (!RemLockedDorrs.Contains(door))
+                 {
+                    // Add the door to the list
+                    door.Lock(999999f, DoorLockType.AdminCommand);
+                    RemLockedDorrs.Add(door);
+                 }
+                 else
+                 {
+                    // Remove the door from the list
+                    door.Unlock();
+                    RemLockedDorrs.Remove(door);
+                 }
+            }
+            
+
+            base.OnShot(ev);
         }
 
         private IEnumerator<float> DoInventoryRegeneration(Player player)
