@@ -1,6 +1,5 @@
 ﻿using Exiled.API.Interfaces;
 using Exiled.API.Features;
-using Exiled.Events.Commands.Reload;
 using Exiled.Loader;
 using System;
 using System.ComponentModel;
@@ -10,6 +9,7 @@ using AudioSystem.Models.SoundConfigs;
 using System.Collections.Generic;
 using UnityEngine;
 using Exiled.API.Enums;
+using PlayerRoles;
 namespace NGMainPlugin
 {
     public class Config : IConfig
@@ -23,14 +23,37 @@ namespace NGMainPlugin
         public bool IsEnabled { get; set; } = true;
         public bool Debug { get; set; }
 
+        /// <summary>
+        /// Gets or sets if tutorials should trigger teslas.
+        /// </summary>
         [Description("Should Tutorials be ignored by teslas? Default: false")]
         public bool NoTesTuts { get; set; } = false;
 
+        /// <summary>
+        /// Gets or sets if should be able to only swap one time in one round.
+        /// </summary>
         [Description("Should you be able to swap SCPs only one time a round? Default: true")]
         public bool SingleSwap { get; set; } = true;
 
+        /// <summary>
+        /// Gets or sets the time SCPs have to use .scpswap.
+        /// </summary>
         [Description("After how many seconds should you not be able to swap scps anymore? Default: 60")]
         public float ScpSwapTimeout { get; set; } = 60f;
+
+        /// <summary>
+        /// Gets or sets the valid SCPs for the .scpswap command.
+        /// </summary>
+        public List<RoleTypeId> SwapableScps { get; set; } = new List<RoleTypeId>()
+        {
+            RoleTypeId.Scp049,
+            RoleTypeId.Scp079,
+            RoleTypeId.Scp3114,
+            RoleTypeId.Scp096,
+            RoleTypeId.Scp173,
+            RoleTypeId.Scp106,
+            RoleTypeId.Scp939,
+        };
 
         [Description("Should SCP079 be able to use CASSI only once per round? Default: true")]
         public bool Single079Cassi { get; set; } = true;

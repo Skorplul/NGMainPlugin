@@ -1,7 +1,6 @@
 ﻿using CommandSystem;
 using System;
 using Exiled.API.Features;
-using Exiled.Permissions.Extensions;
 using PlayerRoles;
 using System.Collections.Generic;
 
@@ -77,6 +76,8 @@ namespace NGMainPlugin.Commands
                         return RoleTypeId.Scp939;
                     case "173":
                         return RoleTypeId.Scp173;
+                    case "3114":
+                        return RoleTypeId.Scp3114;
                     default:
                         return RoleTypeId.None;
                 }
@@ -84,6 +85,11 @@ namespace NGMainPlugin.Commands
             if (GetSwap(arguments.Array[1]) == RoleTypeId.None)
             {
                 response = "Not a valid SCP!";
+                return false;
+            }
+            if (!Plugin.Config.SwapableScps.Contains(GetSwap(arguments.Array[1])))
+            {
+                response = "You can not swap to this SCP!";
                 return false;
             }
             if (player.Role == GetSwap(arguments.Array[1]))

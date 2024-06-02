@@ -145,6 +145,7 @@
     <Compile Include="Database.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Items\C4Charge.cs" />
+    <Compile Include="Items\DoorRemote.cs" />
     <Compile Include="Items\GrenadeLauncher.cs" />
     <Compile Include="Items\Scp1499.cs" />
     <Compile Include="Items\SniperRifle.cs" />

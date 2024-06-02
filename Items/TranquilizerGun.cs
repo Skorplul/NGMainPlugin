@@ -304,5 +304,6 @@ public class TranquilizerGun : CustomWeapon
     protected override void OnReloading(ReloadingWeaponEventArgs ev)
     {
         ev.IsAllowed = false;
+        base.OnReloading(ev);
     }
 }

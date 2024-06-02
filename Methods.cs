@@ -1,5 +1,4 @@
-﻿using AudioSystem;
-using AudioSystem.Models.SoundConfigs;
+﻿using AudioSystem.Models.SoundConfigs;
 using Exiled.API.Features;
 using MEC;
 using System.Collections.Generic;

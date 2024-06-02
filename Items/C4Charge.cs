@@ -15,13 +15,10 @@ using Exiled.Events.EventArgs.Map;
 using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Server;
 
-using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
-using Mirror;
 using UnityEngine;
 using YamlDotNet.Serialization;
 
-using Object = UnityEngine.Object;
 using PlayerEvent = Exiled.Events.Handlers.Player;
 
 /// <inheritdoc/>
