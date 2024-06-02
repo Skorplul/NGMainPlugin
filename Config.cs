@@ -44,7 +44,7 @@ namespace NGMainPlugin
         /// <summary>
         /// Gets or sets the valid SCPs for the .scpswap command.
         /// </summary>
-        [Description("BITTE NICHT OHNE ABSPRACHE ÄNDERN!!!!(Der coder dafür ist noch nicht modular und WIRD kaputt gehen!)")]
+        [Description("Ihr könnt diese config ändern, aber für den Fall ihr wollt eine Rolle hinzufügen geht das nocht nicht, nur entfernen und wieder hinzufügen der bereits existierenden Rollen!")]
         public List<RoleTypeId> SwapableScps { get; set; } = new List<RoleTypeId>()
         {
             RoleTypeId.Scp049,
