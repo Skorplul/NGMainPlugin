@@ -14,9 +14,8 @@ using Firearm = Exiled.API.Features.Items.Firearm;
 using FirearmPickup = InventorySystem.Items.Firearms.FirearmPickup;
 using System.ComponentModel;
 using Exiled.Events.EventArgs.Player;
-using LiteDB;
 using UnityEngine;
-using System.Linq;
+using System;
 
 namespace NGMainPlugin.Items
 {
@@ -96,14 +95,12 @@ namespace NGMainPlugin.Items
         ///<inheritdoc/>
         protected override void SubscribeEvents()
         {
-
             base.SubscribeEvents();
         }
 
         ///<inheritdoc/>
         protected override void UnsubscribeEvents()
         {
-
             base.UnsubscribeEvents();
         }
 
@@ -133,40 +130,92 @@ namespace NGMainPlugin.Items
         protected override void OnReloading(ReloadingWeaponEventArgs ev)
         {
             ev.IsAllowed = false;
-            ev.Player.ShowHint("You can't reload, this item reloads it's self with time!", 7);
+            ev.Player.ShowHint("You can't reload! This item reloads it's self over time!", 7);
             base.OnReloading(ev);
         }
 
         protected override void OnShot(ShotEventArgs ev)
         {
-            // Perform a raycast to determine what the shot hit
-            Physics.Raycast(ev.Player.CameraTransform.position, ev.Player.CameraTransform.forward, out RaycastHit hit, Mathf.Infinity);
-            
-            // Try to get the Door component from the hit object
-            Door door = hit.transform.GetComponent<Door>();
-
-            // If the hit object is a door
-            if (door != null)
+            try
+            {
+                // Perform a raycast to determine what the shot hit
+                if (Physics.Raycast(ev.Player.CameraTransform.position, ev.Player.CameraTransform.forward, out RaycastHit hit, Mathf.Infinity))
                 {
-                 // Check if the door is already in the list
-                 if (!RemLockedDorrs.Contains(door))
-                 {
-                    // Add the door to the list
-                    door.Lock(999999f, DoorLockType.AdminCommand);
-                    RemLockedDorrs.Add(door);
-                 }
-                 else
-                 {
-                    // Remove the door from the list
-                    door.Unlock();
-                    RemLockedDorrs.Remove(door);
-                 }
+                    // Debug: Print the name of the hit object
+                    Log.Info($"Hit object: {hit.transform.name}");
+
+                    // Check if the hit object or its parents have a Door component
+                    Door door = hit.transform.GetComponent<Door>();
+                    if (door == null)
+                    {
+                        door = hit.transform.GetComponentInParent<Door>();
+                    }
+
+                    if (door == null)
+                    {
+                        // Extended search: check nearby colliders within a small radius
+                        Collider[] colliders = Physics.OverlapSphere(hit.point, 1.0f);
+                        foreach (var collider in colliders)
+                        {
+                            door = collider.GetComponent<Door>();
+                            if (door != null)
+                            {
+                                Log.Info($"Door component found on nearby collider: {collider.transform.name}");
+                                break;
+                            }
+                        }
+                    }
+
+                    if (door == null)
+                    {
+                        Log.Warn($"No Door component found on the hit object or its parents: {hit.transform.name}");
+                        LogHierarchy(hit.transform);
+                    }
+                    else
+                    {
+                        Log.Info($"Door component identified: {door.Base.name}");
+
+                        // Check if the door is already in the list
+                        if (!RemLockedDorrs.Contains(door))
+                        {
+                            // Add the door to the list
+                            RemLockedDorrs.Add(door);
+                            ev.Player.ShowHint($"Door {door.Base.name} has been added to the remote control list.", 5);
+                        }
+                        else
+                        {
+                            // Remove the door from the list
+                            RemLockedDorrs.Remove(door);
+                            ev.Player.ShowHint($"Door {door.Base.name} has been removed from the remote control list.", 5);
+                        }
+                    }
+                }
+                else
+                {
+                    Log.Warn("Raycast did not hit any object.");
+                }
             }
-            
+            catch (Exception ex)
+            {
+                Log.Error($"Exception in OnShot: {ex}");
+            }
+
 
             base.OnShot(ev);
         }
 
+        private void LogHierarchy(Transform transform)
+        {
+            int safetyCounter = 0; // Safeguard counter to prevent infinite loops
+            while (transform != null && safetyCounter < 100)
+            {
+                Log.Info($"Object: {transform.name} - Tag: {transform.tag} - Layer: {LayerMask.LayerToName(transform.gameObject.layer)}");
+                transform = transform.parent;
+                safetyCounter++; // Increment the safeguard counter
+            }
+        }
+        //door.Lock(180f, DoorLockType.AdminCommand);
+        //door.Unlock();
         private IEnumerator<float> DoInventoryRegeneration(Player player)
         {
             while (true)
