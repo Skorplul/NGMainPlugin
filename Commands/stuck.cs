@@ -23,6 +23,17 @@ namespace NGMainPlugin.Commands.Test
         {
             Player player = Player.Get(sender);
 
+            if (!Round.IsStarted)
+            {
+                response = "You can‘t use this here!";
+                return false; 
+            }
+            if (Round.IsEnded)
+            {
+                response = "You can‘t use this here!";
+                return false;
+            }
+
             foreach  (Player ply in Player.List)
             {
                 if (ply.CheckPermission(PlayerPermissions.ForceclassSelf))
