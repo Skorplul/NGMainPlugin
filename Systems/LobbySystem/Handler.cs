@@ -9,7 +9,7 @@ using System.Linq;
 using UnityEngine;
 
 #nullable enable
-namespace NGMainPlugin.LobbySystem
+namespace NGMainPlugin.Systems.LobbySystem
 {
     public sealed class Handler
     {

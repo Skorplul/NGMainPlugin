@@ -3,7 +3,7 @@ using System;
 using System.Runtime.InteropServices;
 
 #nullable enable
-namespace NGMainPlugin.LobbySystem
+namespace NGMainPlugin.Systems.LobbySystem
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     [CommandHandler(typeof(ClientCommandHandler))]

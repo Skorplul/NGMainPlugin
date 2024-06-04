@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 
 #nullable disable
-namespace NGMainPlugin.LobbySystem
+namespace NGMainPlugin.Systems.LobbySystem
 {
     [HarmonyPatch(typeof(CharacterClassManager), "ForceRoundStart")]
     internal static class RoundStartPatch

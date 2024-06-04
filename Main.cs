@@ -9,6 +9,7 @@ using SCP079 = Exiled.Events.Handlers.Scp079;
 using Exiled.CustomItems.API.Features;
 using HarmonyLib;
 using NGMainPlugin.Commands;
+using NGMainPlugin.Systems.PainkillerHandlers;
 
 namespace NGMainPlugin
 {
@@ -19,18 +20,17 @@ namespace NGMainPlugin
         public override string Prefix { get; } = "NGM";
         public override Version Version { get; } = new Version(0, 1, 0);
 
-        public override Version RequiredExiledVersion { get; } = new Version(8, 5, 0);
+        public override Version RequiredExiledVersion { get; } = new Version(8, 8, 0);
 
         public EventHandlers EventHandlers;
-        public LobbySystem.Handler LobbySystemHandler;
+        public PainkillerHand PainkillerHand;
+        public Systems.LobbySystem.Handler LobbySystemHandler;
 
         public static Main Instance { get; private set; }
         private Harmony Harmony { get; set; } = new Harmony("LobbySystem");
 
         public override void OnEnabled()
         {
-            
-
             this.Harmony.PatchAll();
             Config.LoadItems();
 
@@ -39,9 +39,10 @@ namespace NGMainPlugin
 
             Instance = this;
             EventHandlers = new EventHandlers(this);
-            LobbySystemHandler = new LobbySystem.Handler();
+            PainkillerHand = new PainkillerHand(this);
+            LobbySystemHandler = new Systems.LobbySystem.Handler();
 
-            Player.UsingItemCompleted += EventHandlers.OnTakingPainkiller;
+            Player.UsingItemCompleted += PainkillerHand.OnTakingPainkiller;
             Player.TriggeringTesla += EventHandlers.OnTriggeringTesla;
             SCP079.GainingLevel += EventHandlers.OnSCP079GainingLvl;
             Server.RoundStarted += EventHandlers.OnRoundStarted;
@@ -62,10 +63,11 @@ namespace NGMainPlugin
             Player.TriggeringTesla -= EventHandlers.OnTriggeringTesla;
             SCP079.GainingLevel -= EventHandlers.OnSCP079GainingLvl;
             Server.RoundStarted -= EventHandlers.OnRoundStarted;
-            Player.UsingItemCompleted -= EventHandlers.OnTakingPainkiller;
+            Player.UsingItemCompleted -= PainkillerHand.OnTakingPainkiller;
             Server.WaitingForPlayers -= LobbySystemHandler.OnWaitingForPlayers;
             Player.Verified -= LobbySystemHandler.OnVerified;
 
+            PainkillerHand = null;
             EventHandlers = null;
             Instance = null;
             LobbySystemHandler = null;

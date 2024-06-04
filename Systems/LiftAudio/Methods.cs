@@ -4,7 +4,7 @@ using MEC;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NGMainPlugin
+namespace NGMainPlugin.Systems.Liftaudio
 {
     internal class Methods
     {
