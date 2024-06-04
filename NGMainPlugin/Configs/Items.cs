@@ -20,7 +20,7 @@ namespace NGMainPlugin.Configs
         };
 
         [Description("C4 Settings")]
-        public List<C4Charge> C4 { get; private set; } = new()
+        public List<C4Charge> C4Charge { get; private set; } = new()
         {
             new C4Charge(),
         };
