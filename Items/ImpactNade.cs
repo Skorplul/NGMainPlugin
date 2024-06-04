@@ -12,7 +12,7 @@ using Exiled.Events.EventArgs.Map;
 namespace NGMainPlugin.Items
 {
     [CustomItem(ItemType.GrenadeHE)]
-    internal class ImpactNade : CustomGrenade
+    public class ImpactNade : CustomGrenade
     {
         public override uint Id { get; set; } = 3;
  

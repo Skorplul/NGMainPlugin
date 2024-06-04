@@ -42,5 +42,11 @@ namespace NGMainPlugin.Configs
         {
             new TranquilizerGun(),
         };
+
+        [Description("Aufprall Granaten Settings")]
+        public List<ImpactNade> ImpactNades { get; private set; } = new()
+        {
+            new ImpactNade(),
+        };
     }
 }
