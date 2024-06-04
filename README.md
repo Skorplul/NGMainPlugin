@@ -1,5 +1,6 @@
 # Info 
- This is the main plugin for the SCP:SL server Nexus Gaming
+ This is the main plugin for the SCP:SL server Nexus Gaming \
+ Discord: [Nexus Gaming](https://discord.gg/xHw7uD6Fr8)
 
  ## Configs
 
