@@ -12,6 +12,11 @@ ItemName | ItemID | Description
 Grenade Launcher | 0 | A grenade launcher. This weapon shoots grenades that explode on impact with anything, instead of bullets.
 Door Remote *(Doesn't work yet)* | 2 | This is a remote control for doors, you can lock and unlock them.
 Impact Grenades | 3 | A grenade, which instantly explodes uppon impact.
+SCP-1499 | 8 | The gas mask that teleports you to another dimension, when you put it on.
+Sniper | 10 | A sniper rifle. Also self-explanatory.
+Tranquilizer Gun | 11 | This gun is also modified to fire self-injecting projectile darts. When fired at a hostile target, it will tranquilize them, rendering them unconscious for several seconds.
+C4 | 15 | A frag-grenade with a much longer than normal fuse, that will stick to the first solid surface it comes in contact with. It can be detonated using a console command. ".detonate"
+
 
 
 ### Commands
