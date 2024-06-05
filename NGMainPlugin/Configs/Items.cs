@@ -48,5 +48,11 @@ namespace NGMainPlugin.Configs
         {
             new ImpactNade(),
         };
+
+        [Description("Aufprall Granaten Settings")]
+        public List<Knife> Knifes { get; private set; } = new()
+        {
+            new Knife(),
+        };
     }
 }

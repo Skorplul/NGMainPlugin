@@ -8,12 +8,14 @@ using MEC;
 using UnityEngine;
 using Exiled.API.Features.Spawn;
 using Exiled.API.Features.Attributes;
+using Exiled.API.Features.DamageHandlers;
+using Exiled.CustomItems;
 
 namespace NGMainPlugin.Items
 {
     /// <inheritdoc />
     [CustomItem(ItemType.Adrenaline)]
-    public class Rock : CustomItem
+    public class Knife : CustomItem
     {
         private const int PlayerLayerMask = 1208246273;
 
@@ -74,51 +76,57 @@ namespace NGMainPlugin.Items
         // Not quiet shure if it only happens on the custom item or every item (To be tested!)
         protected void OnUsing(Exiled.Events.EventArgs.Player.UsingItemEventArgs ev)
         {
-            Log.Debug("OnUsing in Knife.cs has been used for this item!");
-            ev.IsAllowed = false;
-            Timing.CallDelayed(1.25f, () =>
+            if (Check(ev.Item))
             {
-                foreach (Item item in ev.Player.Items)
+                Log.Debug("OnUsing in Knife.cs has been used for this item!");
+                ev.IsAllowed = false;
+                Timing.CallDelayed(0.25f, () =>
                 {
-                    if (Check(item))
+                    foreach (Item item in ev.Player.Items)
                     {
-                        ev.Player.CurrentItem = item;
-                        break;
+                        if (Check(item))
+                        {
+                            ev.Player.CurrentItem = item;
+                            break;
+                        }
                     }
-                }
 
-                Vector3 forward = ev.Player.CameraTransform.forward;
+                    Vector3 forward = ev.Player.CameraTransform.forward;
 
-                if (!Physics.Linecast(ev.Player.CameraTransform.position, ev.Player.CameraTransform.position + (forward * 1.5f), out RaycastHit hit, PlayerLayerMask))
-                    return;
-
-                Log.Debug($"{ev.Player.Nickname} linecast is true!");
-                if (hit.collider == null)
-                {
-                    Log.Debug($"{ev.Player.Nickname} collider is null?");
-                    return;
-                }
-
-                Player target = Player.Get(hit.collider.GetComponentInParent<ReferenceHub>());
-                if (target == null)
-                {
-                    Log.Debug($"{ev.Player.Nickname} target null");
-                    return;
-                }
-
-                if (!FriendlyFire)
-                {
-                    if (ev.Player.IsNTF && target.IsNTF)
+                    if (!Physics.Linecast(ev.Player.CameraTransform.position, ev.Player.CameraTransform.position + (forward * 1.5f), out RaycastHit hit, PlayerLayerMask))
                         return;
-                    if (ev.Player.IsCHI && target.IsCHI)
+
+                    Log.Debug($"{ev.Player.Nickname} linecast is true!");
+                    if (hit.collider == null)
+                    {
+                        Log.Debug($"{ev.Player.Nickname} collider is null?");
                         return;
-                }
+                    }
 
-                Log.Debug($"{ev.Player.Nickname} hit {target.Nickname}");
+                    Player target = Player.Get(hit.collider.GetComponentInParent<ReferenceHub>());
+                    if (target == null)
+                    {
+                        Log.Debug($"{ev.Player.Nickname} target null");
+                        return;
+                    }
 
-                ev.Player.ShowHitMarker();
-                target.Hurt(ev.Player, HitDamage, DamageType.Bleeding, null);
-            });
+                    if (!FriendlyFire)
+                    {
+                        if (ev.Player.IsNTF && target.IsNTF)
+                            return;
+                        if (ev.Player.IsCHI && target.IsCHI)
+                            return;
+                    }
+
+                    if (target == ev.Player)
+                        return;
+
+                    Log.Debug($"{ev.Player.Nickname} hit {target.Nickname}");
+
+                    ev.Player.ShowHitMarker();
+                    target.Hurt(ev.Player, HitDamage, DamageType.Bleeding, null, "Died to a Knive");
+                });
+            }
 
         }
 
