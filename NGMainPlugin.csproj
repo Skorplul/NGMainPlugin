@@ -150,6 +150,7 @@
     <Compile Include="NGMainPlugin\Items\DoorRemote.cs" />
     <Compile Include="NGMainPlugin\Items\GrenadeLauncher.cs" />
     <Compile Include="NGMainPlugin\Items\ImpactNade.cs" />
+    <Compile Include="NGMainPlugin\Items\Knife.cs" />
     <Compile Include="NGMainPlugin\Items\Scp1499.cs" />
     <Compile Include="NGMainPlugin\Items\SniperRifle.cs" />
     <Compile Include="NGMainPlugin\Items\TranquilizerGun.cs" />
