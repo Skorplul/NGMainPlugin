@@ -162,8 +162,10 @@
     <Compile Include="NGMainPlugin\Systems\Painkiller\PainkillerHandlers.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="NGMainPlugin\.config\app.config" />
     <None Include="NGMainPlugin\.config\packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
