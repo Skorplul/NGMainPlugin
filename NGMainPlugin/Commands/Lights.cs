@@ -50,11 +50,20 @@ namespace NGMainPlugin.NGMainPlugin.Commands
 
             try
             {
-                byte r = byte.Parse(arguments.Array[1]);
-                byte g = byte.Parse(arguments.Array[2]);
-                byte b = byte.Parse(arguments.Array[3]);
+                float r = float.Parse(arguments.Array[1]);
+                float g = float.Parse(arguments.Array[2]);
+                float b = float.Parse(arguments.Array[3]);
 
-
+                if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
+                {
+                    response = "The r/g/b values have to be between 0 - 255";
+                    return false;
+                }
+                
+                //convert to percentage
+                r = r/255; 
+                g = g/255; 
+                b = b/255;
 
                 UnityEngine.Color NewMapLights = new UnityEngine.Color(r, g, b);
                 Map.ChangeLightsColor(NewMapLights);
