@@ -76,7 +76,7 @@ namespace NGMainPlugin.Items
         // Not quiet shure if it only happens on the custom item or every item (To be tested!)
         protected void OnUsing(Exiled.Events.EventArgs.Player.UsingItemEventArgs ev)
         {
-            if (Check(ev.Item))
+            if (this.Check(ev.Item))
             {
                 Log.Debug("OnUsing in Knife.cs has been used for this item!");
                 ev.IsAllowed = false;

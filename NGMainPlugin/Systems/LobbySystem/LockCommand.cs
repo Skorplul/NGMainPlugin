@@ -2,21 +2,29 @@
 using System;
 using System.Runtime.InteropServices;
 
-#nullable enable
 namespace NGMainPlugin.Systems.LobbySystem
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     [CommandHandler(typeof(ClientCommandHandler))]
     [CommandHandler(typeof(GameConsoleCommandHandler))]
-    public class LockCommand : ICommand
+    public class LockCommand : ParentCommand
     {
-        public string Command => "locklobby";
+        public static Main Plugin { get; set; }
 
-        public string Description => "Locks/unlocks the lobby!";
+        public LockCommand()
+        {
+            LoadGeneratedCommands();
+        }
 
-        public string[] Aliases { get; } = new string[] { "llock" };
+        public override string Command { get; } = "locklobby";
 
-        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
+        public override string Description { get; } = "Locks/unlocks the lobby!";
+
+        public override string[] Aliases { get; } = new string[] { "llock" };
+
+        public override void LoadGeneratedCommands() { }
+
+        protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             if (!sender.CheckPermission(PlayerPermissions.RoundEvents))
             {

@@ -162,7 +162,6 @@ namespace NGMainPlugin.Items
                     if (door == null)
                     {
                         Log.Debug($"No Door component found on the hit object or its parents: {hit.collider.name}");
-                        LogHierarchy(hit.collider);
                     }
                     else
                     {
@@ -195,16 +194,6 @@ namespace NGMainPlugin.Items
 
 
             base.OnShot(ev);
-        }
-
-        private void LogHierarchy(Collider collider)
-        {
-            int safetyCounter = 0; // Safeguard counter to prevent infinite loops
-            while (collider != null && safetyCounter < 1)
-            {
-                Log.Debug($"Object: {collider.name} - Tag: {collider.tag} - Layer: {LayerMask.LayerToName(collider.gameObject.layer)}");
-                safetyCounter++; // Increment the safeguard counter
-            }
         }
         //door.Lock(180f, DoorLockType.AdminCommand);
         //door.Unlock();
