@@ -18,9 +18,9 @@ namespace NGMainPlugin
         public override string Author { get; } = "Skorp 1.0";
         public override string Name { get; } = "NGMainPlugin";
         public override string Prefix { get; } = "NGM";
-        public override Version Version { get; } = new Version(0, 1, 0);
+        public override Version Version { get; } = new Version(1, 0, 0);
 
-        public override Version RequiredExiledVersion { get; } = new Version(8, 8, 0);
+        public override Version RequiredExiledVersion { get; } = new Version(8, 9, 4);
 
         public EventHandlers EventHandlers;
         public PainkillerHand PainkillerHand;
@@ -48,6 +48,8 @@ namespace NGMainPlugin
             Server.RoundStarted += EventHandlers.OnRoundStarted;
             Server.WaitingForPlayers += LobbySystemHandler.OnWaitingForPlayers;
             Player.Verified += LobbySystemHandler.OnVerified;
+            Player.Banned += EventHandlers.OnBan;
+            Player.Kicked += EventHandlers.OnKick;
 
             SCPSwap.Plugin = this;
             Durchsage.Plugin = this;
@@ -66,6 +68,8 @@ namespace NGMainPlugin
             Player.UsingItemCompleted -= PainkillerHand.OnTakingPainkiller;
             Server.WaitingForPlayers -= LobbySystemHandler.OnWaitingForPlayers;
             Player.Verified -= LobbySystemHandler.OnVerified;
+            Player.Banned -= EventHandlers.OnBan;
+            Player.Kicked -= EventHandlers.OnKick;
 
             PainkillerHand = null;
             EventHandlers = null;

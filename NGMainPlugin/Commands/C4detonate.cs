@@ -8,19 +8,26 @@ using UnityEngine;
 
 /// <inheritdoc/>
 [CommandHandler(typeof(ClientCommandHandler))]
-public class C4Charge : ICommand
+public class C4Charge : ParentCommand
 {
-    /// <inheritdoc/>
-    public string Command { get; } = "detonate";
+    public C4Charge()
+    {
+        LoadGeneratedCommands();
+    }
 
     /// <inheritdoc/>
-    public string[] Aliases { get; } = new string[] { "det" };
+    public override string Command { get; } = "detonate";
 
     /// <inheritdoc/>
-    public string Description { get; } = "Detonate command for detonating C4 charges";
+    public override string[] Aliases { get; } = new string[] { "det" };
 
     /// <inheritdoc/>
-    public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
+    public override string Description { get; } = "Detonate command for detonating C4 charges";
+
+    public override void LoadGeneratedCommands() { }
+
+    /// <inheritdoc/>
+    protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
     {
         Player ply = Player.Get(sender);
 

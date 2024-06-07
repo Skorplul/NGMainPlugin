@@ -23,6 +23,8 @@ namespace NGMainPlugin.Items
     [CustomItem(ItemType.GunCOM18)]
     internal class DoorRemote : CustomWeapon
     {
+        private const int PlayerLayerMask = 1208246273;
+
         private readonly List<Door> RemLockedDorrs = new List<Door>();
 
         ///<inheritdoc/>
@@ -139,41 +141,31 @@ namespace NGMainPlugin.Items
             try
             {
                 // Perform a raycast to determine what the shot hit
-                if (Physics.Raycast(ev.Player.CameraTransform.position, ev.Player.CameraTransform.forward, out RaycastHit hit, Mathf.Infinity))
+                if (Physics.Linecast(ev.Player.CameraTransform.position, ev.Player.CameraTransform.forward, out RaycastHit hit, PlayerLayerMask))
                 {
                     // Debug: Print the name of the hit object
-                    Log.Info($"Hit object: {hit.transform.name}");
+                    Log.Debug($"Hit object: {hit.collider.name}");
 
                     // Check if the hit object or its parents have a Door component
-                    Door door = hit.transform.GetComponent<Door>();
+                    Door door = hit.collider.GetComponent<Door>();
                     if (door == null)
                     {
-                        door = hit.transform.GetComponentInParent<Door>();
+                        door = hit.collider.GetComponentInParent<Door>();
                     }
 
                     if (door == null)
                     {
-                        // Extended search: check nearby colliders within a small radius
-                        Collider[] colliders = Physics.OverlapSphere(hit.point, 1.0f);
-                        foreach (var collider in colliders)
-                        {
-                            door = collider.GetComponent<Door>();
-                            if (door != null)
-                            {
-                                Log.Info($"Door component found on nearby collider: {collider.transform.name}");
-                                break;
-                            }
-                        }
+                        Log.Error("door is null");
+                        return;
                     }
 
                     if (door == null)
                     {
-                        Log.Warn($"No Door component found on the hit object or its parents: {hit.transform.name}");
-                        LogHierarchy(hit.transform);
+                        Log.Debug($"No Door component found on the hit object or its parents: {hit.collider.name}");
                     }
                     else
                     {
-                        Log.Info($"Door component identified: {door.Base.name}");
+                        Log.Debug($"Door component identified: {door.Base.name}");
 
                         // Check if the door is already in the list
                         if (!RemLockedDorrs.Contains(door))
@@ -192,27 +184,16 @@ namespace NGMainPlugin.Items
                 }
                 else
                 {
-                    Log.Warn("Raycast did not hit any object.");
+                    Log.Debug("Raycast did not hit any object.");
                 }
             }
             catch (Exception ex)
             {
-                Log.Error($"Exception in OnShot: {ex}");
+                Log.Debug($"Exception in OnShot: {ex}");
             }
 
 
             base.OnShot(ev);
-        }
-
-        private void LogHierarchy(Transform transform)
-        {
-            int safetyCounter = 0; // Safeguard counter to prevent infinite loops
-            while (transform != null && safetyCounter < 100)
-            {
-                Log.Info($"Object: {transform.name} - Tag: {transform.tag} - Layer: {LayerMask.LayerToName(transform.gameObject.layer)}");
-                transform = transform.parent;
-                safetyCounter++; // Increment the safeguard counter
-            }
         }
         //door.Lock(180f, DoorLockType.AdminCommand);
         //door.Unlock();
