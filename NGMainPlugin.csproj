@@ -138,6 +138,7 @@
   <ItemGroup>
     <Compile Include="NGMainPlugin\Commands\C4detonate.cs" />
     <Compile Include="NGMainPlugin\Commands\durchsage.cs" />
+    <Compile Include="NGMainPlugin\Commands\Lights.cs" />
     <Compile Include="NGMainPlugin\Commands\nick.cs" />
     <Compile Include="NGMainPlugin\Commands\nickremove.cs" />
     <Compile Include="NGMainPlugin\Commands\scpswap.cs" />
