@@ -10,6 +10,7 @@ using Exiled.API.Features.Spawn;
 using Exiled.API.Features.Attributes;
 using Exiled.API.Features.DamageHandlers;
 using Exiled.CustomItems;
+using PlayerRoles;
 
 namespace NGMainPlugin.Items
 {
@@ -70,6 +71,12 @@ namespace NGMainPlugin.Items
             base.UnsubscribeEvents();
         }
 
+        public readonly DamageHandlerBase.CassieAnnouncement d = new DamageHandlerBase.CassieAnnouncement("")
+        {
+            Announcement = "",
+            SubtitleParts = null,
+        };
+
         /// <summary>
         /// Called befor the player uses the item
         /// </summary>
@@ -110,25 +117,35 @@ namespace NGMainPlugin.Items
                         return;
                     }
 
+                    if (target == ev.Player)
+                        return;
+
                     if (!FriendlyFire)
                     {
+                        if (ev.Player.Role == target.Role)
+                            return;
                         if (ev.Player.IsNTF && target.IsNTF)
                             return;
                         if (ev.Player.IsCHI && target.IsCHI)
                             return;
+                        if (ev.Player.IsCHI && target.Role == RoleTypeId.ClassD)
+                            return;
+                        if (ev.Player.IsNTF && target.Role == RoleTypeId.Scientist)
+                            return;
                     }
-
-                    if (target == ev.Player)
-                        return;
 
                     Log.Debug($"{ev.Player.Nickname} hit {target.Nickname}");
 
+
+
                     ev.Player.ShowHitMarker();
-                    target.Hurt(ev.Player, HitDamage, DamageType.Bleeding, null, "Died to a Knive");
+                    target.Hurt(ev.Player, HitDamage, DamageType.Bleeding, d, "You died to a knife!");
+
+                    //ev.Player, HitDamage, DamageType.Bleeding, null, "Died to a Knive"
                 });
             }
 
         }
 
-    } 
+    }
 }
