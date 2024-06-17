@@ -1,7 +1,4 @@
 ﻿using Exiled.API.Features;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Server = Exiled.Events.Handlers.Server;
 using Player = Exiled.Events.Handlers.Player;
 using Map = Exiled.Events.Handlers.Map;
@@ -33,14 +30,13 @@ namespace NGMainPlugin
         public PainkillerHand PainkillerHand;
         public Systems.LobbySystem.Handler LobbySystemHandler;
         public Systems.DiscordLogs.LogHandler DCLogHandler;
-        public Systems.RespawnTimer.RespawnTimerHandler respawnTimerHandler;
 
         public static Main Instance { get; private set; }
         private Harmony Harmony { get; set; } = new Harmony("LobbySystem");
 
-        public static NGMainPlugin.Systems.RespawnTimer.RespawnTimer Singleton;
+        public static NGMainPlugin.Main Singleton;
 
-        public static string RespawnTimerDirectoryPath { get; } = Path.Combine(Paths.Configs, nameof(RespawnTimer));
+        public static string RespawnTimerDirectoryPath { get; } = Path.Combine(Paths.Configs, nameof(NGMainPlugin.Systems.RespawnTimer));
 
         public override void OnEnabled()
         {
@@ -70,18 +66,17 @@ namespace NGMainPlugin
             Durchsage.Plugin = this;
 
             /// only for RespawnTimer
-            RespawnTimer.RespawnTimer.Singleton = this;
-            if (!Directory.Exists(RespawnTimer.RespawnTimer.RespawnTimerDirectoryPath))
+            Main.Singleton = this;
+            if (!Directory.Exists(Main.RespawnTimerDirectoryPath))
             {
                 Log.Warn("RespawnTimer directory does not exist. Creating...");
-                Directory.CreateDirectory(RespawnTimer.RespawnTimer.RespawnTimerDirectoryPath);
+                Directory.CreateDirectory(Main.RespawnTimerDirectoryPath);
             }
-            string str = Path.Combine(RespawnTimer.RespawnTimer.RespawnTimerDirectoryPath, "ExampleTimer");
+            string str = Path.Combine(Main.RespawnTimerDirectoryPath, "ExampleTimer");
             if (!Directory.Exists(str))
                 this.DownloadExampleTimer(str);
             Exiled.Events.Handlers.Map.Generated += new CustomEventHandler(EventHandler.OnGenerated);
             Exiled.Events.Handlers.Server.RoundStarted += new CustomEventHandler(EventHandler.OnRoundStart);
-            Exiled.Events.Handlers.Server.ReloadedConfigs += new CustomEventHandler(((Plugin<RespawnTimer.Configs.Config>)this).OnReloaded);
             Exiled.Events.Handlers.Player.Dying += new CustomEventHandler<DyingEventArgs>(EventHandler.OnDying);
             foreach (IPlugin<IConfig> plugin in Exiled.Loader.Loader.Plugins)
             {
@@ -90,7 +85,7 @@ namespace NGMainPlugin
                     case "Serpents Hand":
                         if (plugin.Config.IsEnabled)
                         {
-                            RespawnTimer.API.API.SerpentsHandTeam.Init(plugin.Assembly);
+                            NGMainPlugin.Systems.RespawnTimer.API.API.SerpentsHandTeam.Init(plugin.Assembly);
                             Log.Debug("Serpents Hand plugin detected!");
                             break;
                         }
@@ -98,14 +93,14 @@ namespace NGMainPlugin
                     case "UIURescueSquad":
                         if (plugin.Config.IsEnabled)
                         {   
-                            RespawnTimer.API.API.UiuTeam.Init(plugin.Assembly);
+                            NGMainPlugin.Systems.RespawnTimer.API.API.UiuTeam.Init(plugin.Assembly);
                             Log.Debug("UIURescueSquad plugin detected!");
                             break;
                         }
                         break;
                 }
             }
-            if (!this.Config.ReloadTimerEachRound)
+            if (!Systems.RespawnTimer.Configs.Config.ReloadTimerEachRound)
                 this.OnReloaded();
             /// end
 
@@ -136,6 +131,17 @@ namespace NGMainPlugin
             Durchsage.Plugin = null;
 
             /// only for RespawnTimer
+            Exiled.Events.Handlers.Map.Generated -= new CustomEventHandler(EventHandler.OnGenerated);
+            Exiled.Events.Handlers.Server.RoundStarted -= new CustomEventHandler(EventHandler.OnRoundStart);
+            Exiled.Events.Handlers.Player.Dying -= new CustomEventHandler<DyingEventArgs>(EventHandler.OnDying);
+            Main.Singleton = null;
+            ///end
+            base.OnDisabled();
+        }
+
+        public override void OnReloaded()
+        {
+            /// only for RespawnTimer
             if (this.Config.Timers.IsEmpty<string, string>())
             {
                 Log.Error("Timer list is empty!");
@@ -165,18 +171,6 @@ namespace NGMainPlugin
                 Log.Info("Done!");
             }
         }
-
-        public override string Name => nameof(RespawnTimer);
-
-        public override string Author => "Michal78900";
-
-        public override Version Version => new Version(4, 0, 2);
-
-        public override Version RequiredExiledVersion => new Version(7, 0, 5);
-
-        public override PluginPriority Priority => PluginPriority.Last;
-        ///
-            base.OnDisabled();
-        }
+        ///end
     }
 }
