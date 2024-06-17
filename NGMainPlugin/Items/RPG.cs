@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace NGMainPlugin.NGMainPlugin.Items
+namespace NGMainPlugin.Items
 {
     [CustomItem(ItemType.GunLogicer)]
     public class RPG : CustomWeapon

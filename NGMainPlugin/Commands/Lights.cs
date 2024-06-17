@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace NGMainPlugin.NGMainPlugin.Commands
+namespace NGMainPlugin.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class Lights : ParentCommand
