@@ -120,32 +120,54 @@ namespace NGMainPlugin.Items
                     if (target == ev.Player)
                         return;
 
+                    bool hitt = true;
+
                     if (!FriendlyFire)
                     {
-                        if (ev.Player.Role == target.Role)
-                            return;
+                        Log.Debug($"user: {ev.Player.Role}   target: {target.Role} ");
+                        if (ev.Player.Role.Type == target.Role.Type)
+                        {
+                            hitt = false;
+                            Log.Debug("same role");
+                        }
                         if (ev.Player.IsNTF && target.IsNTF)
-                            return;
+                        {
+                            hitt = false;
+                            Log.Debug("both ntf");
+                        }
                         if (ev.Player.IsCHI && target.IsCHI)
-                            return;
-                        if (ev.Player.IsCHI && target.Role == RoleTypeId.ClassD)
-                            return;
-                        if (ev.Player.IsNTF && target.Role == RoleTypeId.Scientist)
-                            return;
+                        {
+                            hitt = false;
+                            Log.Debug("both ci");
+                        }
+                        if (ev.Player.IsCHI && target.Role.Type == RoleTypeId.ClassD)
+                        {
+                            hitt = false;
+                            Log.Debug("ci on classd");
+                        }
+                        if (ev.Player.IsNTF && target.Role.Type == RoleTypeId.Scientist)
+                        {
+                            hitt = false;
+                            Log.Debug("ntf on scientist");
+                        }
                     }
 
-                    Log.Debug($"{ev.Player.Nickname} hit {target.Nickname}");
+                    if (!hitt)
+                    {
+                        Log.Debug("hitt is false, returning");
+                        return;
+                    }
+                    else
+                    {
+                        Log.Debug($"{ev.Player.Nickname} hit {target.Nickname}");
 
+                        ev.Player.ShowHitMarker();
+                        target.Hurt(ev.Player, HitDamage, DamageType.Bleeding, d, "You died to a knife!");
 
-
-                    ev.Player.ShowHitMarker();
-                    target.Hurt(ev.Player, HitDamage, DamageType.Bleeding, d, "You died to a knife!");
-
-                    //ev.Player, HitDamage, DamageType.Bleeding, null, "Died to a Knive"
+                        //ev.Player, HitDamage, DamageType.Bleeding, null, "Died to a Knive"
+                    }
                 });
             }
-
         }
-
     }
 }
