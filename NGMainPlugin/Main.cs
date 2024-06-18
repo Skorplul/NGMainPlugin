@@ -20,9 +20,9 @@ namespace NGMainPlugin
     public class Main : Plugin<Config>
     {
         public override string Author { get; } = "Skorp 1.0";
-        public override string Name { get; } = "NGMainPlugin (Dev-Build)";
-        public override string Prefix { get; } = "NGM (Dev)";
-        public override Version Version { get; } = new Version(1, 0, 0);
+        public override string Name { get; } = "NGMainPlugin";
+        public override string Prefix { get; } = "NGM";
+        public override Version Version { get; } = new Version(1, 3, 0);
 
         public override Version RequiredExiledVersion { get; } = new Version(8, 9, 4);
 
