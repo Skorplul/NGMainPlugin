@@ -29,7 +29,6 @@ namespace NGMainPlugin
         public EventHandlers EventHandlers;
         public PainkillerHand PainkillerHand;
         public Systems.LobbySystem.Handler LobbySystemHandler;
-        public Systems.DiscordLogs.LogHandler DCLogHandler;
 
         public static Main Instance { get; private set; }
         private Harmony Harmony { get; set; } = new Harmony("LobbySystem");
@@ -50,7 +49,6 @@ namespace NGMainPlugin
             EventHandlers = new EventHandlers(this);
             PainkillerHand = new PainkillerHand(this);
             LobbySystemHandler = new Systems.LobbySystem.Handler();
-            DCLogHandler = new Systems.DiscordLogs.LogHandler();
 
             Player.UsingItemCompleted += PainkillerHand.OnTakingPainkiller;
             Player.TriggeringTesla += EventHandlers.OnTriggeringTesla;
@@ -130,7 +128,6 @@ namespace NGMainPlugin
             EventHandlers = null;
             Instance = null;
             LobbySystemHandler = null;
-            DCLogHandler = null;
             SCPSwap.Plugin = null;
             Durchsage.Plugin = null;
 
