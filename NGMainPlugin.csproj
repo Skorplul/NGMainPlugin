@@ -152,16 +152,13 @@
     <Compile Include="NGMainPlugin\DB\Database.cs" />
     <Compile Include="NGMainPlugin\EventHandlers.cs" />
     <Compile Include="NGMainPlugin\Items\C4Charge.cs" />
-    <Compile Include="NGMainPlugin\Items\DoorRemote.cs" />
     <Compile Include="NGMainPlugin\Items\GrenadeLauncher.cs" />
     <Compile Include="NGMainPlugin\Items\ImpactNade.cs" />
     <Compile Include="NGMainPlugin\Items\Knife.cs" />
-    <Compile Include="NGMainPlugin\Items\RPG.cs" />
     <Compile Include="NGMainPlugin\Items\Scp1499.cs" />
     <Compile Include="NGMainPlugin\Items\SniperRifle.cs" />
     <Compile Include="NGMainPlugin\Items\TranquilizerGun.cs" />
     <Compile Include="NGMainPlugin\Main.cs" />
-    <Compile Include="NGMainPlugin\Systems\DiscordLogs\LogHandler.cs" />
     <Compile Include="NGMainPlugin\Systems\LiftAudio\Methods.cs" />
     <Compile Include="NGMainPlugin\Systems\RespawnTimer\API.cs" />
     <Compile Include="NGMainPlugin\Systems\RespawnTimer\ExternalTeamChecker.cs" />
