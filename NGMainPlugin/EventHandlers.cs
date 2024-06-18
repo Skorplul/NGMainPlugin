@@ -6,6 +6,8 @@ using Exiled.Events.EventArgs.Player;
 using PlayerRoles;
 using MEC;
 using NGMainPlugin.Systems.Liftaudio;
+using Exiled.Events.EventArgs.Server;
+using InventorySystem.Configs;
 
 namespace NGMainPlugin
 {
@@ -15,6 +17,7 @@ namespace NGMainPlugin
 
         public static int PcCurentLvl;
         readonly Random random = new Random();
+        public bool friendlyFireDisable = false;
 
         public EventHandlers (Main plugin)
         {
@@ -49,13 +52,32 @@ namespace NGMainPlugin
 
         public void OnBan(BannedEventArgs ev)
         {
-            Map.Broadcast(6, $"[< color =#f67979>N</color><color=#e86e6c>e</color><color=#d96260>x</color><color=#cb5754>u</color><color=#bd4c48>s</color><color=#af413c>G</color><color=#a13631>a</color><color=#932a26>m</color><color=#851f1b>i</color><color=#771211>n</color><color=#6a0303>g</color>]: {ev.Player.Nickname} has been banned from the server!");
+            Map.Broadcast(6, $"[<color=#f67979>N</color><color=#e86e6c>e</color><color=#d96260>x</color><color=#cb5754>u</color><color=#bd4c48>s</color><color=#af413c>G</color><color=#a13631>a</color><color=#932a26>m</color><color=#851f1b>i</color><color=#771211>n</color><color=#6a0303>g</color>]: {ev.Player.Nickname} has been banned from the server!");
         }
 
         public void OnKick(KickedEventArgs ev)
         {
-            Map.Broadcast(6, $"[< color =#f67979>N</color><color=#e86e6c>e</color><color=#d96260>x</color><color=#cb5754>u</color><color=#bd4c48>s</color><color=#af413c>G</color><color=#a13631>a</color><color=#932a26>m</color><color=#851f1b>i</color><color=#771211>n</color><color=#6a0303>g</color>]: {ev.Player.Nickname} has been kicked from the server!");
+            Map.Broadcast(6, $"[<color=#f67979>N</color><color=#e86e6c>e</color><color=#d96260>x</color><color=#cb5754>u</color><color=#bd4c48>s</color><color=#af413c>G</color><color=#a13631>a</color><color=#932a26>m</color><color=#851f1b>i</color><color=#771211>n</color><color=#6a0303>g</color>]: {ev.Player.Nickname} has been kicked from the server!");
         }
 
+        public void OnWaitingForPlayers()
+        {
+            if (friendlyFireDisable)
+            {
+                Log.Debug($"{nameof(OnWaitingForPlayers)}: Disabling friendly fire.");
+                Server.FriendlyFire = false;
+                friendlyFireDisable = false;
+            }
+        }
+
+        public void OnRoundEnded(RoundEndedEventArgs ev)
+        {
+            if (plugin.Config.RoundEndFF && !Server.FriendlyFire)
+            {
+                Log.Debug($"{nameof(OnRoundEnded)}: Enabling friendly fire.");
+                Server.FriendlyFire = true;
+                friendlyFireDisable = true;
+            }
+        }
     }
 }

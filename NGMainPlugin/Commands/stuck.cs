@@ -4,7 +4,7 @@ using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
 
 
-namespace NGMainPlugin.Commands.Test
+namespace NGMainPlugin.Commands
 {
     [CommandHandler(typeof(ClientCommandHandler))]
     public class stuck : ParentCommand

@@ -3,7 +3,7 @@ using System;
 using Exiled.API.Features;
 
 
-namespace NGMainPlugin.Commands.Test
+namespace NGMainPlugin.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     [CommandHandler(typeof(GameConsoleCommandHandler))]

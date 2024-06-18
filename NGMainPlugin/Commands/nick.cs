@@ -9,8 +9,6 @@ namespace NGMainPlugin.Commands
     [CommandHandler(typeof(ClientCommandHandler))]
     public class Nick : ParentCommand
     {
-        public static List<string> spoke = new List<string>();
-
         public static Main Plugin { get; set; }
 
         public Nick()
