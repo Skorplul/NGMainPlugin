@@ -2,7 +2,6 @@
  This is the main plugin for the SCP:SL server Nexus Gaming \
  Discord: [Nexus Gaming](https://discord.gg/xHw7uD6Fr8)
 
- __***This is the Dev-Branch and version***__
  ## Configs
 
  Config settings for the individual items will ***NOT*** be found in the default plugin config file. Instead they will be located in ~/.config/EXILED/Configs/CustomItems on Linux or %AppData%\EXILED\Configs\CustomItems on Winblows.
