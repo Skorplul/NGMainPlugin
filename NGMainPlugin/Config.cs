@@ -38,6 +38,12 @@ namespace NGMainPlugin
         public bool SingleSwap { get; set; } = true;
 
         /// <summary>
+        /// Gets or sets if FF should be enabled at the end of the round.
+        /// </summary>
+        [Description("Should friendly fire get enabled at the end of the round.")]
+        public bool RoundEndFF { get; set; } = true;
+
+        /// <summary>
         /// Gets or sets the time SCPs have to use .scpswap.
         /// </summary>
         [Description("After how many seconds should you not be able to swap scps anymore? Default: 60")]
@@ -129,5 +135,21 @@ namespace NGMainPlugin
 
         public Vector3 SpawnPosition { get; set; } = new Vector3(0.0f, 995.6f, -8f);
 
+        public Dictionary<string, string> Timers { get; private set; } = new Dictionary<string, string>()
+    {
+      {
+        "default",
+        "ExampleTimer"
+      }
+    };
+
+        [Description("Whether the timer should be reloaded each round. Useful if you have many different timers designed.")]
+        public bool ReloadTimerEachRound { get; private set; } = true;
+
+        [Description("Whether the timer should be hidden for players in overwatch.")]
+        public bool HideTimerForOverwatch { get; private set; } = true;
+
+        [Description("The delay before the timer will be shown after player death.")]
+        public float TimerDelay { get; private set; } = -1f;
     }
 }

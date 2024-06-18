@@ -17,8 +17,8 @@ namespace NGMainPlugin.Systems.RespawnTimer
 
         internal static void OnGenerated()
         {
-            if (RespawnTimer.RespawnTimer.Singleton.Config.ReloadTimerEachRound)
-                RespawnTimer.RespawnTimer.Singleton.OnReloaded();
+            if (Main.Singleton.Config.ReloadTimerEachRound)
+                Main.Singleton.OnReloaded();
             if (EventHandler._timerCoroutine.IsRunning)
                 Timing.KillCoroutines(EventHandler._timerCoroutine);
             if (!EventHandler._hintsCoroutine.IsRunning)
@@ -42,14 +42,14 @@ namespace NGMainPlugin.Systems.RespawnTimer
 
         internal static void OnDying(DyingEventArgs ev)
         {
-            if ((double)RespawnTimer.RespawnTimer.Singleton.Config.TimerDelay < 0.0)
+            if ((double)Main.Singleton.Config.TimerDelay < 0.0)
                 return;
             if (EventHandler.PlayerDeathDictionary.ContainsKey(ev.Player))
             {
                 Timing.KillCoroutines(EventHandler.PlayerDeathDictionary[ev.Player]);
                 EventHandler.PlayerDeathDictionary.Remove(ev.Player);
             }
-            EventHandler.PlayerDeathDictionary.Add(ev.Player, Timing.CallDelayed(RespawnTimer.RespawnTimer.Singleton.Config.TimerDelay, (Action)(() => EventHandler.PlayerDeathDictionary.Remove(ev.Player))));
+            EventHandler.PlayerDeathDictionary.Add(ev.Player, Timing.CallDelayed(Main.Singleton.Config.TimerDelay, (Action)(() => EventHandler.PlayerDeathDictionary.Remove(ev.Player))));
         }
 
         private static IEnumerator<float> TimerCoroutine()
@@ -67,7 +67,7 @@ namespace NGMainPlugin.Systems.RespawnTimer
                     {
                         if (!player.IsAlive || player.SessionVariables.ContainsKey("IsGhost"))
                         {
-                            if (!player.IsOverwatchEnabled || !RespawnTimer.RespawnTimer.Singleton.Config.HideTimerForOverwatch)
+                            if (!player.IsOverwatchEnabled || !Main.Singleton.Config.HideTimerForOverwatch)
                             {
                                 if (!RespawnTimer.API.API.TimerHidden.Contains(player.UserId))
                                 {

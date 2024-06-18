@@ -27,7 +27,7 @@ namespace NGMainPlugin.Systems.RespawnTimer.API.Features
         {
             if (TimerView.CachedTimers.ContainsKey(name))
                 return;
-            string str = Path.Combine(RespawnTimer.RespawnTimer.RespawnTimerDirectoryPath, name);
+            string str = Path.Combine(Main.RespawnTimerDirectoryPath, name);
             if (!Directory.Exists(str))
             {
                 Log.Error(name + " directory does not exist!");
@@ -70,17 +70,17 @@ namespace NGMainPlugin.Systems.RespawnTimer.API.Features
         public static bool TryGetTimerForPlayer(Player player, out TimerView timerView)
         {
             string key;
-            if (player.GroupName != null && RespawnTimer.RespawnTimer.Singleton.Config.Timers.TryGetValue(player.GroupName, out key))
+            if (player.GroupName != null && Main.Singleton.Config.Timers.TryGetValue(player.GroupName, out key))
             {
                 timerView = TimerView.CachedTimers[key];
                 return true;
             }
-            if (RespawnTimer.RespawnTimer.Singleton.Config.Timers.TryGetValue(player.UserId, out key))
+            if (Main.Singleton.Config.Timers.TryGetValue(player.UserId, out key))
             {
                 timerView = TimerView.CachedTimers[key];
                 return true;
             }
-            if (RespawnTimer.RespawnTimer.Singleton.Config.Timers.TryGetValue("default", out key))
+            if (Main.Singleton.Config.Timers.TryGetValue("default", out key))
             {
                 timerView = TimerView.CachedTimers[key];
                 return true;

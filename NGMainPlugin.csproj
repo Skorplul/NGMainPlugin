@@ -149,7 +149,6 @@
     <Compile Include="NGMainPlugin\Config.cs" />
     <Compile Include="NGMainPlugin\Configs\Items.cs" />
     <Compile Include="NGMainPlugin\Configs\Properties.cs" />
-    <Compile Include="NGMainPlugin\Configs\RespawnTimer.cs" />
     <Compile Include="NGMainPlugin\DB\Database.cs" />
     <Compile Include="NGMainPlugin\EventHandlers.cs" />
     <Compile Include="NGMainPlugin\Items\C4Charge.cs" />

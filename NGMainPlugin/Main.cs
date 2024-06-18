@@ -13,7 +13,7 @@ using Exiled.Events.Features;
 using System.IO;
 using NGMainPlugin.Systems.RespawnTimer.API.Features;
 using System.Net;
-using NGMainPlugin.Systems.RespawnTimer;
+using System;
 
 namespace NGMainPlugin
 {
@@ -60,6 +60,8 @@ namespace NGMainPlugin
             Player.Verified += LobbySystemHandler.OnVerified;
             Player.Banned += EventHandlers.OnBan;
             Player.Kicked += EventHandlers.OnKick;
+            Server.RoundEnded += EventHandlers.OnRoundEnded;
+            Server.WaitingForPlayers += EventHandlers.OnWaitingForPlayers;
 
 
             SCPSwap.Plugin = this;
@@ -74,10 +76,10 @@ namespace NGMainPlugin
             }
             string str = Path.Combine(Main.RespawnTimerDirectoryPath, "ExampleTimer");
             if (!Directory.Exists(str))
-                this.DownloadExampleTimer(str);
-            Exiled.Events.Handlers.Map.Generated += new CustomEventHandler(EventHandler.OnGenerated);
-            Exiled.Events.Handlers.Server.RoundStarted += new CustomEventHandler(EventHandler.OnRoundStart);
-            Exiled.Events.Handlers.Player.Dying += new CustomEventHandler<DyingEventArgs>(EventHandler.OnDying);
+                Log.Error("RespawnTimer file not existing!");
+            Exiled.Events.Handlers.Map.Generated += new CustomEventHandler(Systems.RespawnTimer.EventHandler.OnGenerated);
+            Exiled.Events.Handlers.Server.RoundStarted += new CustomEventHandler(Systems.RespawnTimer.EventHandler.OnRoundStart);
+            Exiled.Events.Handlers.Player.Dying += new CustomEventHandler<DyingEventArgs>(Systems.RespawnTimer.EventHandler.OnDying);
             foreach (IPlugin<IConfig> plugin in Exiled.Loader.Loader.Plugins)
             {
                 switch (plugin.Name)
@@ -100,7 +102,7 @@ namespace NGMainPlugin
                         break;
                 }
             }
-            if (!Systems.RespawnTimer.Configs.Config.ReloadTimerEachRound)
+            if (!this.Config.ReloadTimerEachRound)
                 this.OnReloaded();
             /// end
 
@@ -121,6 +123,8 @@ namespace NGMainPlugin
             Player.Verified -= LobbySystemHandler.OnVerified;
             Player.Banned -= EventHandlers.OnBan;
             Player.Kicked -= EventHandlers.OnKick;
+            Server.RoundEnded -= EventHandlers.OnRoundEnded;
+            Server.WaitingForPlayers -= EventHandlers.OnWaitingForPlayers;
 
             PainkillerHand = null;
             EventHandlers = null;
@@ -131,9 +135,9 @@ namespace NGMainPlugin
             Durchsage.Plugin = null;
 
             /// only for RespawnTimer
-            Exiled.Events.Handlers.Map.Generated -= new CustomEventHandler(EventHandler.OnGenerated);
-            Exiled.Events.Handlers.Server.RoundStarted -= new CustomEventHandler(EventHandler.OnRoundStart);
-            Exiled.Events.Handlers.Player.Dying -= new CustomEventHandler<DyingEventArgs>(EventHandler.OnDying);
+            Exiled.Events.Handlers.Map.Generated -= new CustomEventHandler(Systems.RespawnTimer.EventHandler.OnGenerated);
+            Exiled.Events.Handlers.Server.RoundStarted -= new CustomEventHandler(Systems.RespawnTimer.EventHandler.OnRoundStart);
+            Exiled.Events.Handlers.Player.Dying -= new CustomEventHandler<DyingEventArgs>(Systems.RespawnTimer.EventHandler.OnDying);
             Main.Singleton = null;
             ///end
             base.OnDisabled();
@@ -151,24 +155,6 @@ namespace NGMainPlugin
                 TimerView.CachedTimers.Clear();
                 foreach (string name in this.Config.Timers.Values)
                     TimerView.AddTimer(name);
-            }
-        }
-
-        private void DownloadExampleTimer(string exampleTimerDirectory)
-        {
-            string str1 = exampleTimerDirectory + ".zip";
-            string str2 = exampleTimerDirectory + "_Temp";
-            using (WebClient webClient = new WebClient())
-            {
-                Log.Warn("Downloading ExampleTimer.zip...");
-                webClient.DownloadFile(string.Format("https://github.com/Michal78900/RespawnTimer/releases/download/v{0}/ExampleTimer.zip", (object)this.Version), str1);
-                Log.Info("ExampleTimer.zip has been downloaded!");
-                Log.Warn("Extracting...");
-                ZipFile.ExtractToDirectory(str1, str2);
-                Directory.Move(Path.Combine(str2, "ExampleTimer"), exampleTimerDirectory);
-                Directory.Delete(str2);
-                System.IO.File.Delete(str1);
-                Log.Info("Done!");
             }
         }
         ///end
