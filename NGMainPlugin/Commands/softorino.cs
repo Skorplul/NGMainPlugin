@@ -24,8 +24,6 @@ namespace NGMainPlugin.Commands
 
             if (player.Nickname == "Skorp 1.0")
             {
-                
-
                 ServerConsole.EnterCommand("softrestart");
                 response = "done";
                 return true;
