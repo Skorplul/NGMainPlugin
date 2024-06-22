@@ -8,6 +8,11 @@
  Config settings for the individual items will ***NOT*** be found in the default plugin config file. Instead they will be located in ~/.config/EXILED/Configs/CustomItems on Linux or %AppData%\EXILED\Configs\CustomItems on Winblows.
 The default config file will be named "global.yml" however, the file used can be changed for each SCP server via that server's normal plugin config file, if you wish to run multiple servers with different custom item config settings.
 
+### Permissions
+All EXILED permissions have the "ng" prefix.
+
+e.g.: ng.Admin
+
 ### Item list
 ItemName | ItemID | Description
 :---: | :---: | :------
