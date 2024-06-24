@@ -1,5 +1,4 @@
-﻿/*
-using CommandSystem;
+﻿using CommandSystem;
 using Exiled.API.Features;
 using MapEditorReborn.API.Features;
 using MapEditorReborn.API.Features.Objects;
@@ -11,15 +10,19 @@ using Exiled.Permissions.Extensions;
 namespace NGMainPlugin.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    public class TransformPlayer : ICommand
+    public class TransformPlayer : ParentCommand
     {
-        public string Command { get; } = "trnasform";
+        public TransformPlayer() => LoadGeneratedCommands();
 
-        public string[] Aliases { get; } = { "trf" };
+        public override string Command { get; } = "trnasform";
 
-        public string Description { get; } = "Gives a specified player an other skin, while he keeps his role.";
+        public override string[] Aliases { get; } = { "trf" };
 
-        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
+        public override string Description { get; } = "Gives a specified player an other skin, while he keeps his role.";
+
+        public override void LoadGeneratedCommands() { }
+
+        protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             Player player = Player.Get(sender);
 
@@ -145,4 +148,3 @@ namespace NGMainPlugin.Commands
         }
     }
 }
-*/
