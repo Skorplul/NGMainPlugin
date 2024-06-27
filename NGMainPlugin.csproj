@@ -178,12 +178,29 @@
     <Compile Include="NGMainPlugin\Systems\LobbySystem\LockCommand.cs" />
     <Compile Include="NGMainPlugin\Systems\LobbySystem\RoundStartPatch.cs" />
     <Compile Include="NGMainPlugin\Systems\Painkiller\PainkillerHandlers.cs" />
+    <None Include="TechSuppe\FAQ\Head.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="NGMainPlugin\.config\app.config" />
     <None Include="packages.config" />
+    <None Include="Pastebins\ModdedMain.md" />
     <None Include="README.md" />
+    <None Include="TechSuppe\FAQ\15.md" />
+    <None Include="TechSuppe\FAQ\14.md" />
+    <None Include="TechSuppe\FAQ\13.md" />
+    <None Include="TechSuppe\FAQ\12.md" />
+    <None Include="TechSuppe\FAQ\11.md" />
+    <None Include="TechSuppe\FAQ\10.md" />
+    <None Include="TechSuppe\FAQ\9.md" />
+    <None Include="TechSuppe\FAQ\8.md" />
+    <None Include="TechSuppe\FAQ\7.md" />
+    <None Include="TechSuppe\FAQ\6.md" />
+    <None Include="TechSuppe\FAQ\5.md" />
+    <None Include="TechSuppe\FAQ\4.md" />
+    <None Include="TechSuppe\FAQ\3.md" />
+    <None Include="TechSuppe\FAQ\2.md" />
+    <None Include="TechSuppe\FAQ\1.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
