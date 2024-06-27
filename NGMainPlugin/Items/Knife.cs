@@ -87,7 +87,7 @@ namespace NGMainPlugin.Items
             {
                 Log.Debug("OnUsing in Knife.cs has been used for this item!");
                 ev.IsAllowed = false;
-                Timing.CallDelayed(0.25f, () =>
+                Timing.CallDelayed(1.25f, () =>
                 {
                     foreach (Item item in ev.Player.Items)
                     {
