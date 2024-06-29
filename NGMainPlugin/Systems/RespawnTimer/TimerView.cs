@@ -16,6 +16,7 @@ namespace NGMainPlugin.Systems.RespawnTimer.API.Features
 {
     public class TimerView
     {
+        public readonly NGMainPlugin.Commands.AdminSysEvents EvCommand;
         public static readonly Dictionary<string, TimerView> CachedTimers = new Dictionary<string, TimerView>();
         private readonly StringBuilder StringBuilder = new StringBuilder(1024);
 

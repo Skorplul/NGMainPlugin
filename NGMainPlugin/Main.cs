@@ -30,6 +30,7 @@ namespace NGMainPlugin
         public PainkillerHand PainkillerHand;
         public Systems.LobbySystem.Handler LobbySystemHandler;
         public Systems.DiscordLogs.LogHandler DCLogHandler;
+        public Systems.SystemEvents.Handlers SysEvHandler;
 
         public static Main Instance { get; private set; }
         private Harmony Harmony { get; set; } = new Harmony("LobbySystem");
@@ -51,6 +52,7 @@ namespace NGMainPlugin
             PainkillerHand = new PainkillerHand(this);
             LobbySystemHandler = new Systems.LobbySystem.Handler();
             DCLogHandler = new Systems.DiscordLogs.LogHandler();
+            SysEvHandler = new Systems.SystemEvents.Handlers();
 
             Player.UsingItemCompleted += PainkillerHand.OnTakingPainkiller;
             Player.TriggeringTesla += EventHandlers.OnTriggeringTesla;
@@ -62,6 +64,7 @@ namespace NGMainPlugin
             Player.Kicked += EventHandlers.OnKick;
             Server.RoundEnded += EventHandlers.OnRoundEnded;
             Server.WaitingForPlayers += EventHandlers.OnWaitingForPlayers;
+            Server.RespawningTeam += SysEvHandler.Spawning;
 
 
             SCPSwap.Plugin = this;
@@ -125,12 +128,14 @@ namespace NGMainPlugin
             Player.Kicked -= EventHandlers.OnKick;
             Server.RoundEnded -= EventHandlers.OnRoundEnded;
             Server.WaitingForPlayers -= EventHandlers.OnWaitingForPlayers;
+            Server.RespawningTeam -= SysEvHandler.Spawning;
 
             PainkillerHand = null;
             EventHandlers = null;
             Instance = null;
             LobbySystemHandler = null;
             DCLogHandler = null;
+            SysEvHandler = null;
             SCPSwap.Plugin = null;
             Durchsage.Plugin = null;
 
