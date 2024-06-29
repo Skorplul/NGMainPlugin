@@ -8,8 +8,6 @@ namespace NGMainPlugin.Commands
     [CommandHandler(typeof(ClientCommandHandler))]
     public class NickRemove : ParentCommand
     {
-        public static List<string> spoke = new List<string>();
-
         public static Main Plugin { get; set; }
 
         public NickRemove()
