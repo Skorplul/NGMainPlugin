@@ -28,6 +28,7 @@ namespace NGMainPlugin.Commands
 
             Room CurrentRoom = player.CurrentRoom;
 
+
             response = "No";
             return false;
         }
