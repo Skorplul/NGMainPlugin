@@ -112,6 +112,7 @@
     <Compile Include="NGMainPlugin\Commands\durchsage.cs" />
     <Compile Include="NGMainPlugin\Commands\Lights.cs" />
     <Compile Include="NGMainPlugin\Commands\LiveEvents.cs" />
+    <Compile Include="NGMainPlugin\Commands\Map.cs" />
     <Compile Include="NGMainPlugin\Commands\nick.cs" />
     <Compile Include="NGMainPlugin\Commands\nickremove.cs" />
     <Compile Include="NGMainPlugin\Commands\scpswap.cs" />
