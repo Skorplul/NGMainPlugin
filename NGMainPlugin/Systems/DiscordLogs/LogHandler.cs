@@ -8,7 +8,7 @@ namespace NGMainPlugin.Systems.DiscordLogs
 {
     public class LogHandler
     {
-        private readonly Main plugin;
+        //private readonly Main plugin;
 
 
 
