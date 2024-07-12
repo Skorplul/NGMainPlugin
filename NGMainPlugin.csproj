@@ -143,6 +143,11 @@
     <Compile Include="NGMainPlugin\Systems\RespawnTimer\TimerView.cs" />
     <Compile Include="NGMainPlugin\Systems\RespawnTimer\RespawnTimerHandler.cs" />
     <Compile Include="NGMainPlugin\Systems\RespawnTimer\UiuTeam.cs" />
+    <Compile Include="NGMainPlugin\Systems\RgbNuke\AudioPlayer.cs" />
+    <Compile Include="NGMainPlugin\Commands\DiscoCommand.cs" />
+    <Compile Include="NGMainPlugin\Systems\RgbNuke\EventHandler.cs" />
+    <Compile Include="NGMainPlugin\Systems\RgbNuke\FakeConnection.cs" />
+    <Compile Include="NGMainPlugin\Systems\RgbNuke\NukeHandler.cs" />
     <Compile Include="NGMainPlugin\Systems\SystemEvents\Events.cs" />
     <Compile Include="NGMainPlugin\Systems\SystemEvents\Handlers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

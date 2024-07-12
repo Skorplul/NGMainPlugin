@@ -5,11 +5,11 @@ using Exiled.API.Features;
 namespace NGMainPlugin.Commands
 {
     [CommandHandler(typeof(ClientCommandHandler))]
-    public class Map : ParentCommand
+    public class MapThing : ParentCommand
     {
         public static Main Plugin { get; set; }
 
-        public Map()
+        public MapThing()
         {
             LoadGeneratedCommands();
         }
@@ -29,7 +29,7 @@ namespace NGMainPlugin.Commands
             Room CurrentRoom = player.CurrentRoom;
 
 
-            response = "No";
+            response = "Command not reggistered! (pls ignore)";
             return false;
         }
     }

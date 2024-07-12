@@ -136,12 +136,12 @@ namespace NGMainPlugin
         public Vector3 SpawnPosition { get; set; } = new Vector3(0.0f, 995.6f, -8f);
 
         public Dictionary<string, string> Timers { get; private set; } = new Dictionary<string, string>()
-    {
-      {
-        "default",
-        "ExampleTimer"
-      }
-    };
+        {
+            {
+            "default",
+            "ExampleTimer"
+            }
+        };
 
         [Description("Whether the timer should be reloaded each round. Useful if you have many different timers designed.")]
         public bool ReloadTimerEachRound { get; private set; } = true;
@@ -151,5 +151,12 @@ namespace NGMainPlugin
 
         [Description("The delay before the timer will be shown after player death.")]
         public float TimerDelay { get; private set; } = -1f;
+
+        [Description("Gay Nuke Config. :^)")]
+        public float ColorChangeTime { get; set; } = 1f;
+        public int NukeChance { get; set; } = 20;
+        public int Volume { get; set; } = 500;
+        public string MusicDirectory { get; set; } = "{global}/Rainbow Nuke/Audio";
+        public string DisplayName { get; set; } = "Alpha warhead";
     }
 }

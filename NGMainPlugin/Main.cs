@@ -1,8 +1,8 @@
 ﻿using Exiled.API.Features;
 using Server = Exiled.Events.Handlers.Server;
 using Player = Exiled.Events.Handlers.Player;
-using Map = Exiled.Events.Handlers.Map;
 using SCP079 = Exiled.Events.Handlers.Scp079;
+using Warhead = Exiled.Events.Handlers.Warhead;
 using Exiled.CustomItems.API.Features;
 using HarmonyLib;
 using NGMainPlugin.Commands;
@@ -31,6 +31,7 @@ namespace NGMainPlugin
         public Systems.LobbySystem.Handler LobbySystemHandler;
         public Systems.DiscordLogs.LogHandler DCLogHandler;
         public Systems.SystemEvents.Handlers SysEvHandler;
+        public Systems.RGBNuke.EventHandler GayNukeHandler;
 
         public static Main Instance { get; private set; }
         private Harmony Harmony { get; set; } = new Harmony("LobbySystem");
@@ -53,6 +54,7 @@ namespace NGMainPlugin
             LobbySystemHandler = new Systems.LobbySystem.Handler();
             DCLogHandler = new Systems.DiscordLogs.LogHandler();
             SysEvHandler = new Systems.SystemEvents.Handlers();
+            GayNukeHandler = new Systems.RGBNuke.EventHandler();
 
             Player.UsingItemCompleted += PainkillerHand.OnTakingPainkiller;
             Player.TriggeringTesla += EventHandlers.OnTriggeringTesla;
@@ -66,6 +68,11 @@ namespace NGMainPlugin
             Server.WaitingForPlayers += EventHandlers.OnWaitingForPlayers;
             Server.RespawningTeam += SysEvHandler.Spawning;
 
+            Server.RoundStarted += GayNukeHandler.OnRoundStart;
+            Server.RoundEnded += GayNukeHandler.OnRoundEnd;
+            Warhead.Starting += GayNukeHandler.OnWarheadStart;
+            Warhead.Detonated += GayNukeHandler.OnWarheadDetonation;
+            Warhead.Stopping += GayNukeHandler.OnWarheadStop;
 
             SCPSwap.Plugin = this;
             Durchsage.Plugin = this;
@@ -130,12 +137,19 @@ namespace NGMainPlugin
             Server.WaitingForPlayers -= EventHandlers.OnWaitingForPlayers;
             Server.RespawningTeam -= SysEvHandler.Spawning;
 
+            Server.RoundStarted -= GayNukeHandler.OnRoundStart;
+            Server.RoundEnded -= GayNukeHandler.OnRoundEnd;
+            Warhead.Starting -= GayNukeHandler.OnWarheadStart;
+            Warhead.Detonated -= GayNukeHandler.OnWarheadDetonation;
+            Warhead.Stopping -= GayNukeHandler.OnWarheadStop;
+
             PainkillerHand = null;
             EventHandlers = null;
             Instance = null;
             LobbySystemHandler = null;
             DCLogHandler = null;
             SysEvHandler = null;
+            GayNukeHandler = null;
             SCPSwap.Plugin = null;
             Durchsage.Plugin = null;
 

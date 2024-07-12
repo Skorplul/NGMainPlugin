@@ -10,7 +10,7 @@ namespace NGMainPlugin.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class AdminSysEvents : ParentCommand
     {
-        Events events;
+        //Events events;
 
         public bool EventRound = false;
 
