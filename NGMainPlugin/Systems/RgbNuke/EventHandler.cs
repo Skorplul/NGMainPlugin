@@ -8,8 +8,8 @@ namespace NGMainPlugin.Systems.RGBNuke;
 public class EventHandler
 {
     private static int Chance => Main.Singleton.Config.NukeChance;
-
-    private bool _isEnabled;
+    
+    public bool _isEnabled = true;
 
     public void OnRoundStart()
     {
