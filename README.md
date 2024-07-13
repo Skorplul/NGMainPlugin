@@ -1,4 +1,8 @@
-# Info  
+# Important
+This repo has been archived due to EXILED kind of spliting in two on July 13th 2024 and because of that I will move on to NWAPI.
+The dev branch still has some newer features which you can download and compile yourself if you want!
+
+## Info  
  This is the main plugin for the SCP:SL server Nexus Gaming \
  Discord: [Nexus Gaming](https://discord.gg/xHw7uD6Fr8)
 
