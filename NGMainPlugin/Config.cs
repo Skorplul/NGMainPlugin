@@ -64,6 +64,9 @@ namespace NGMainPlugin
             RoleTypeId.Scp939,
         };
 
+        [Description("The player count at which 3114 will be allowed to get swaped to.")]
+        public int SkelliCount = 20;
+
         [Description("Should SCP079 be able to use CASSI only once per round? Default: true")]
         public bool Single079Cassi { get; set; } = true;
 
