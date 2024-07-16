@@ -92,6 +92,14 @@ namespace NGMainPlugin.Commands
                 response = "You can not swap to this SCP!";
                 return false;
             }
+            if (GetSwap(arguments.Array[1]) == RoleTypeId.Scp3114)
+            {
+                if (Server.PlayerCount < Plugin.Config.SkelliCount)
+                {
+                    response = "You can only swap to SCP-3114, if the player count is 20 or greater!";
+                    return false;
+                }
+            }
             if (player.Role == GetSwap(arguments.Array[1]))
             {
                 response = "You can't swap to the same SCP you already are!";
