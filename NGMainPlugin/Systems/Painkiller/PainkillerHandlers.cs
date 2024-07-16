@@ -105,6 +105,16 @@ namespace NGMainPlugin.Systems.PainkillerHandlers
                         return;
                     }
 
+                    if (EffectString == "Ensnared")
+                    {
+                        EffectString = "English or Spanish";
+
+                        ev.Player.ShowHint($"[<color=#FB045B>P</color><color=#F81353>a</color><color=#F5224B>i</color><color=#F23143>n</color><color=#EF403B>k</color><color=#EC4F33>i</color><color=#E95E2B>l</color><color=#E66D23>l</color><color=#E37C1B>e</color><color=#E08B13>r</color>]: You recieved <color=#f90000ff>{EffectString}</color> for <color=#f90000ff>{Durr}</color> seconds!");
+                        ev.Player.EnableEffect(DoEffect, 10, Durr, false);
+
+                        return;
+                    }
+
                     ev.Player.ShowHint($"[<color=#FB045B>P</color><color=#F81353>a</color><color=#F5224B>i</color><color=#F23143>n</color><color=#EF403B>k</color><color=#EC4F33>i</color><color=#E95E2B>l</color><color=#E66D23>l</color><color=#E37C1B>e</color><color=#E08B13>r</color>]: You recieved <color=#f90000ff>{EffectString}</color> for <color=#f90000ff>{Durr}</color> seconds!");
                     ev.Player.EnableEffect(DoEffect, 10, Durr, false);
                 }
