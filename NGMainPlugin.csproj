@@ -33,55 +33,47 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\Plugins\dependencies\0Harmony.dll</HintPath>
+      <HintPath>Dependencies\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>packages\EXILED.8.9.4\lib\net48\Assembly-CSharp-Publicized.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>Dependencies\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-Publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\EXILED.8.9.4\lib\net48\Assembly-CSharp-Publicized.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>Dependencies\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="AudioSystem">
-      <HintPath>..\..\..\..\Desktop\temp\AudioSystem.dll</HintPath>
+      <HintPath>Dependencies\AudioSystem.dll</HintPath>
     </Reference>
     <Reference Include="DiscordIntegration.Dependency">
-      <HintPath>..\Plugins\dependencies\DiscordIntegration.Dependency.dll</HintPath>
+      <HintPath>Dependencies\DiscordIntegration.Dependency.dll</HintPath>
     </Reference>
     <Reference Include="DSharp4Webhook">
-      <HintPath>..\Plugins\dependencies\DSharp4Webhook.dll</HintPath>
+      <HintPath>Dependencies\DSharp4Webhook.dll</HintPath>
     </Reference>
     <Reference Include="Facepunch.Steamworks.Win64">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
+      <HintPath>Dependencies\Facepunch.Steamworks.Win64.dll</HintPath>
     </Reference>
     <Reference Include="FLXLib">
-      <HintPath>..\Plugins\dependencies\FLXLib.dll</HintPath>
-    </Reference>
-    <Reference Include="LiteDB">
-      <HintPath>..\Plugins\dependencies\LiteDB.dll</HintPath>
+      <HintPath>Dependencies\FLXLib.dll</HintPath>
     </Reference>
     <Reference Include="MapEditorReborn">
-      <HintPath>..\..\..\..\Desktop\Nexus\server_datas\DEV\.config\EXILED\Plugins\MapEditorReborn.dll</HintPath>
+      <HintPath>Dependencies\MapEditorReborn.dll</HintPath>
     </Reference>
     <Reference Include="Mirror">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\Mirror.dll</HintPath>
+      <HintPath>Dependencies\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Plugins\dependencies\Newtonsoft.Json.dll</HintPath>
+      <HintPath>Dependencies\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SCPSLAudioApi">
-      <HintPath>..\Plugins\dependencies\SCPSLAudioApi.dll</HintPath>
+      <HintPath>Dependencies\SCPSLAudioApi.dll</HintPath>
     </Reference>
     <Reference Include="SemanticVersioning">
-      <HintPath>..\Plugins\dependencies\SemanticVersioning.dll</HintPath>
+      <HintPath>Dependencies\SemanticVersioning.dll</HintPath>
     </Reference>
     <Reference Include="SerializedData">
-      <HintPath>..\Plugins\dependencies\SerializedData.dll</HintPath>
+      <HintPath>Dependencies\SerializedData.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -93,16 +85,16 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>Dependencies\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AudioModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+      <HintPath>Dependencies\UnityEngine.AudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>Dependencies\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>Dependencies\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +111,7 @@
     <Compile Include="NGMainPlugin\Commands\softorino.cs" />
     <Compile Include="NGMainPlugin\Commands\stuck.cs" />
     <Compile Include="NGMainPlugin\Commands\Test.cs" />
+    <Compile Include="NGMainPlugin\Commands\DataAgree.cs" />
     <Compile Include="NGMainPlugin\Commands\timer.cs" />
     <Compile Include="NGMainPlugin\Config.cs" />
     <Compile Include="NGMainPlugin\Configs\Items.cs" />
@@ -181,6 +174,9 @@
   <ItemGroup>
     <PackageReference Include="EXILED">
       <Version>8.9.4</Version>
+    </PackageReference>
+    <PackageReference Include="LiteDB">
+      <Version>5.0.21</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />
