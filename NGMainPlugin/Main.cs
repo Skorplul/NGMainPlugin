@@ -49,9 +49,6 @@ namespace NGMainPlugin
             Log.Debug("Registering items..");
             CustomItem.RegisterItems(overrideClass: Config.ItemConfigs);
 
-            Log.Debug("Loading Database...");
-            Database.InitDB();
-            
             Instance = this;
             EventHandlers = new EventHandlers(this);
             PainkillerHand = new PainkillerHand(this);
@@ -60,10 +57,15 @@ namespace NGMainPlugin
             SysEvHandler = new Systems.SystemEvents.Handlers();
             GayNukeHandler = new Systems.RGBNuke.EventHandler();
 
+
+            Log.Debug("Loading Database...");
+            Database.InitDB();
+
             // Events for the DataBase
             Player.Verified += Database.OnVerified;
             Player.Left += Database.OnPlayerLeft;
             Server.RoundEnded += Database.OnRoundEnded;
+
 
             Player.UsingItemCompleted += PainkillerHand.OnTakingPainkiller;
             Player.TriggeringTesla += EventHandlers.OnTriggeringTesla;
@@ -133,6 +135,14 @@ namespace NGMainPlugin
         {
             CustomItem.UnregisterItems();
             this.Harmony.UnpatchAll();
+
+
+            Player.Verified -= Database.OnVerified;
+            Player.Left -= Database.OnPlayerLeft;
+            Server.RoundEnded -= Database.OnRoundEnded;
+
+            Database.CloseBD();
+
 
             Player.TriggeringTesla -= EventHandlers.OnTriggeringTesla;
             SCP079.GainingLevel -= EventHandlers.OnSCP079GainingLvl;

@@ -101,6 +101,7 @@
     <Compile Include="NGMainPlugin\Commands\AdminSysEvents.cs" />
     <Compile Include="NGMainPlugin\Commands\C4detonate.cs" />
     <Compile Include="NGMainPlugin\Commands\ChangeSkin.cs" />
+    <Compile Include="NGMainPlugin\Commands\DataInfo.cs" />
     <Compile Include="NGMainPlugin\Commands\durchsage.cs" />
     <Compile Include="NGMainPlugin\Commands\Lights.cs" />
     <Compile Include="NGMainPlugin\Commands\LiveEvents.cs" />

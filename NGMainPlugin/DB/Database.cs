@@ -13,18 +13,26 @@ namespace NGMainPlugin.DB
         public string Id { get; set; }
         public string Nickname { get; set; }
         public string Rank { get; set; }
-        public double Playtime { get; set; }
+        public int Playtime { get; set; }
     }
 
     internal static class Database
     {
         private static LiteDatabase DB;
 
-        public static bool InitDB()
+        public static void InitDB()
         {
             DB = new LiteDatabase(Path.Combine(Paths.Configs, "Test.db"));
+        }
 
-            return true;
+        public static void CloseBD()
+        {
+            foreach (var p in Player.List)
+            {
+                UpdatePlayerInfo(p);
+            }
+
+            DB = null;
         }
 
         public static PlayerInfo CreatePlayerInfo(Player player)
@@ -58,6 +66,18 @@ namespace NGMainPlugin.DB
             return null;
         }
 
+        public static PlayerInfo GetPlayerInfo(string uid)
+        {
+            Log.Info($"Getting player info! {uid}");
+
+            var Result = DB.GetCollection<PlayerInfo>("Players").Query().Where(p => p.Id == uid).ToList();
+
+            if (Result.Count == 1)
+                return Result.First();
+
+            return null;
+        }
+
         public static void UpdatePlayerInfo(Player player)
         {
             Log.Info($"Updating player info! {player.Nickname} {player.UserId}");
@@ -70,7 +90,7 @@ namespace NGMainPlugin.DB
             Info.Rank = player.RankName;
 
             if (player.SessionVariables.ContainsKey("JoinTime"))
-                Info.Playtime += (DateTime.Now - DateTime.FromBinary((long)player.SessionVariables["JoinTime"])).TotalSeconds;
+                Info.Playtime += (int)((DateTime.Now - DateTime.FromBinary((long)player.SessionVariables["JoinTime"])).TotalSeconds);
 
             Log.Info(Info.Playtime);
 
