@@ -56,10 +56,6 @@
     <Reference Include="FLXLib">
       <HintPath>Dependencies\FLXLib.dll</HintPath>
     </Reference>
-    <Reference Include="LiteDB, Version=5.0.19.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Plugins\dependencies\LiteDB.dll</HintPath>
-    </Reference>
     <Reference Include="MapEditorReborn">
       <HintPath>Dependencies\MapEditorReborn.dll</HintPath>
     </Reference>
@@ -178,7 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EXILED">
-      <Version>8.9.4</Version>
+      <Version>8.9.11</Version>
     </PackageReference>
     <PackageReference Include="LiteDB">
       <Version>5.0.21</Version>
