@@ -31,8 +31,9 @@ namespace NGMainPlugin
             Commands.SCPSwap.swaped.Clear();
             Commands.Durchsage.spoke.Clear();
 
-            foreach (Lift lift in (IEnumerable<Lift>)Lift.List)
-                Timing.RunCoroutine(Methods.CheckingPlayerLift(lift));
+            // Disabled because of bugs on Modded_Main
+            //foreach (Lift lift in (IEnumerable<Lift>)Lift.List)
+            //    Timing.RunCoroutine(Methods.CheckingPlayerLift(lift));
         }
 
         public void OnTriggeringTesla(TriggeringTeslaEventArgs ev)

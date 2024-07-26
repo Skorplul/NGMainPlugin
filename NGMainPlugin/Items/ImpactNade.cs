@@ -68,7 +68,6 @@ namespace NGMainPlugin.Items
 
         protected override void OnExploding(ExplodingGrenadeEventArgs ev)
         {
-            
             base.OnExploding(ev);
         }
     }

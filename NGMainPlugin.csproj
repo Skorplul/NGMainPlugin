@@ -118,6 +118,7 @@
     <Compile Include="NGMainPlugin\Configs\Items.cs" />
     <Compile Include="NGMainPlugin\Configs\Properties.cs" />
     <Compile Include="NGMainPlugin\DB\Database.cs" />
+    <Compile Include="NGMainPlugin\Enums\ServerEvents.cs" />
     <Compile Include="NGMainPlugin\EventHandlers.cs" />
     <Compile Include="NGMainPlugin\Items\C4Charge.cs" />
     <Compile Include="NGMainPlugin\Items\DoorRemote.cs" />
@@ -174,7 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EXILED">
-      <Version>8.9.4</Version>
+      <Version>8.9.11</Version>
     </PackageReference>
     <PackageReference Include="LiteDB">
       <Version>5.0.21</Version>

@@ -43,7 +43,8 @@ public class DiscoCommand
             if (arguments.At(0) == "start")
             {
                 NukeHandler.Start();
-                AudioPlayer.PlayAudio();
+                // Disabled because of bugs on Modded_Main
+                //AudioPlayer.PlayAudio();
                 response = "Started the effect";
                 return true;
             }
@@ -51,7 +52,8 @@ public class DiscoCommand
             if (arguments.At(0) == "stop")
             {
                 NukeHandler.Stop();
-                AudioPlayer.RemoveDummy();
+                // Disabled because of bugs on Modded_Main
+                //AudioPlayer.RemoveDummy();
                 response = "Stopped the effect";
                 return true;
             }

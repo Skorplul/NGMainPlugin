@@ -1,12 +1,14 @@
 ﻿using CommandSystem;
 using System;
 using Exiled.API.Features;
+using NGMainPlugin.Systems.SystemEvents;
+using Exiled.Permissions.Extensions;
+using PlayerRoles;
 
 
 namespace NGMainPlugin.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    [CommandHandler(typeof(GameConsoleCommandHandler))]
     public class LiveEvents : ParentCommand
     {
         public LiveEvents() => LoadGeneratedCommands();
@@ -23,10 +25,33 @@ namespace NGMainPlugin.Commands
         {
             Player player = Player.Get(sender);
 
+            if (player == null)
+            {
+                response = "Player is null! Please contact a Developer or Admin!";
+                return false;
+            }
+            if (!player.CheckPermission("NG.Events"))
+            {
+                response = "You don't have permission to use this command.";
+                return false;
+            }
 
+            Respawn.TimeUntilNextPhase = 3000;
+            Warhead.AutoDetonate = false;
 
-            response = "No permission";
-            return false;
+            foreach (Player ply in Player.List)
+            {
+                ply.Role.Set(RoleTypeId.Tutorial);
+                ply.Mute();
+
+                if (ply.RemoteAdminAccess)
+                {
+                    ply.UnMute();
+                }
+            }
+
+            response = "The Event Mode Has Been Activated!";
+            return true;
         }
     }
 }
