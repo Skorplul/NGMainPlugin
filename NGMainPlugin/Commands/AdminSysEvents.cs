@@ -2,7 +2,7 @@
 using System;
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
-using NGMainPlugin.Systems.SystemEvents;
+using EvParams = NGMainPlugin.Systems.SystemEvents.Events;
 
 
 namespace NGMainPlugin.Commands
@@ -10,10 +10,6 @@ namespace NGMainPlugin.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class AdminSysEvents : ParentCommand
     {
-        //Events events;
-
-        public bool EventRound = false;
-
         public AdminSysEvents() => LoadGeneratedCommands();
 
         public override string Command { get; } = "test";
@@ -33,7 +29,7 @@ namespace NGMainPlugin.Commands
                 response = "Player is null, please contact a Dev!";
                 return false;
             }
-            if (!player.CheckPermission("ng.Events"))
+            if (!player.CheckPermission("NG.Events"))
             {
                 response = "You don't have the permission for that!";
                 return false;
@@ -43,7 +39,7 @@ namespace NGMainPlugin.Commands
                 response = "You need to use this in the Lobby!";
                 return false;
             }
-            if (EventRound)
+            if (EvParams.EventRound)
             {
                 response = "An event is already running!";
                 return false;
