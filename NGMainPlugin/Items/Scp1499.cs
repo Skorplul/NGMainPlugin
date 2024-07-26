@@ -18,7 +18,7 @@ using UnityEngine;
 [CustomItem(ItemType.SCP268)]
 public class Scp1499 : CustomItem
 {
-    private readonly Dictionary<Player, Vector3> scp1499Players = new();
+    private readonly Dictionary<Player, (Vector3, Lift)> scp1499Players = new();
 
     /// <inheritdoc/>
     public override uint Id { get; set; } = 8;
@@ -115,10 +115,16 @@ public class Scp1499 : CustomItem
         if (!Check(ev.Player.CurrentItem))
             return;
 
+        (Vector3, Lift) info;
+        if (ev.Player.Lift != null)
+            info = (ev.Player.Position - ev.Player.Lift.Position, ev.Player.Lift);
+        else 
+            info = (ev.Player.Position, null);
+
         if (scp1499Players.ContainsKey(ev.Player))
-            scp1499Players[ev.Player] = ev.Player.Position;
+            scp1499Players[ev.Player] = info;
         else
-            scp1499Players.Add(ev.Player, ev.Player.Position);
+            scp1499Players.Add(ev.Player, info);
 
         ev.Player.Position = TeleportPosition;
         ev.Player.ReferenceHub.playerEffectsController.DisableEffect<Invisible>();
@@ -137,7 +143,10 @@ public class Scp1499 : CustomItem
         if (!scp1499Players.ContainsKey(player))
             return;
 
-        player.Position = scp1499Players[player];
+        if (scp1499Players[player].Item2 != null)
+            player.Position = scp1499Players[player].Item1 + scp1499Players[player].Item2.Position;
+        else
+            player.Position = scp1499Players[player].Item1;
 
         bool shouldKill = false;
         if (Warhead.IsDetonated)
