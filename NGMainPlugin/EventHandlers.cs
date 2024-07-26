@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Exiled.API.Features;
+﻿using Exiled.API.Features;
 using Exiled.Events.EventArgs.Scp079;
 using Exiled.Events.EventArgs.Player;
 using PlayerRoles;
-using MEC;
-using NGMainPlugin.Systems.Liftaudio;
 using Exiled.Events.EventArgs.Server;
-using InventorySystem.Configs;
-using PluginAPI.Events;
+using NGMainPlugin.API;
 
 namespace NGMainPlugin
 {
@@ -87,6 +82,27 @@ namespace NGMainPlugin
                 Log.Debug($"{nameof(OnRoundEnded)}: Enabling friendly fire.");
                 Server.FriendlyFire = true;
                 friendlyFireDisable = true;
+            }
+        }
+
+        public void OnEndingRound (EndingRoundEventArgs ev)
+        {
+            if (ServerEvents.EventRound)
+            {
+                ServerEvents.EventRound = false;
+
+                foreach (Player ply in Player.List)
+                {
+                    ply.UnMute();
+                }
+            }
+        }
+
+        public void OnPlayerLeaving(LeftEventArgs ev)
+        {
+            if (ServerEvents.EventRound)
+            {
+                ev.Player.UnMute();
             }
         }
     }

@@ -13,11 +13,11 @@ namespace NGMainPlugin.Commands
     {
         public LiveEvents() => LoadGeneratedCommands();
 
-        public override string Command { get; } = "test";
+        public override string Command { get; } = "LiveEvent";
 
         public override string[] Aliases { get; } = new string[] { };
 
-        public override string Description { get; } = "Test something :^)";
+        public override string Description { get; } = "Used to make events manualy executed from the Team for the communty.";
 
         public override void LoadGeneratedCommands() { }
 
