@@ -2,7 +2,7 @@
 using System;
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
-using EvParams = NGMainPlugin.Systems.SystemEvents.Events;
+using NGMainPlugin.API;
 
 
 namespace NGMainPlugin.Commands
@@ -12,11 +12,11 @@ namespace NGMainPlugin.Commands
     {
         public AdminSysEvents() => LoadGeneratedCommands();
 
-        public override string Command { get; } = "test";
+        public override string Command { get; } = "AutoEvent";
 
         public override string[] Aliases { get; } = new string[] { };
 
-        public override string Description { get; } = "Test something :^)";
+        public override string Description { get; } = "Manualy Trigger a Server Event.";
 
         public override void LoadGeneratedCommands() { }
 
@@ -39,14 +39,14 @@ namespace NGMainPlugin.Commands
                 response = "You need to use this in the Lobby!";
                 return false;
             }
-            if (EvParams.EventRound)
+            if (ServerEvents.EventRound)
             {
                 response = "An event is already running!";
                 return false;
             }
 
 
-            EventRound = true;
+            ServerEvents.EventRound = true;
 
             response = "Event has been triggered.";
             return true;
