@@ -71,7 +71,7 @@ namespace NGMainPlugin.Items
             base.UnsubscribeEvents();
         }
 
-        public readonly DamageHandlerBase.CassieAnnouncement d = new DamageHandlerBase.CassieAnnouncement("")
+        public readonly DamageHandlerBase.CassieAnnouncement d = new DamageHandlerBase.CassieAnnouncement("") // Probably remove?
         {
             Announcement = "",
             SubtitleParts = null,
@@ -136,12 +136,8 @@ namespace NGMainPlugin.Items
 
                     Log.Debug($"{ev.Player.Nickname} hit {target.Nickname}");
 
-
-
                     ev.Player.ShowHitMarker();
-                    target.Hurt(ev.Player, HitDamage, DamageType.Bleeding, d, "You died to a knife!");
-
-                    //ev.Player, HitDamage, DamageType.Bleeding, null, "Died to a Knive"
+                    target.Hurt(ev.Player, HitDamage, DamageType.Bleeding, null, "You died to a knife!");
                 });
             }
 

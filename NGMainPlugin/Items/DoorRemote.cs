@@ -16,6 +16,7 @@ using System.ComponentModel;
 using Exiled.Events.EventArgs.Player;
 using UnityEngine;
 using System;
+using Interactables.Interobjects.DoorUtils;
 
 namespace NGMainPlugin.Items
 {
@@ -23,7 +24,7 @@ namespace NGMainPlugin.Items
     [CustomItem(ItemType.GunCOM18)]
     internal class DoorRemote : CustomWeapon
     {
-        private const int PlayerLayerMask = 1208246273;
+        private const int DoorLayerMask = 1 << 27;
 
         private readonly List<Door> RemLockedDorrs = new List<Door>();
 
@@ -141,12 +142,13 @@ namespace NGMainPlugin.Items
             try
             {
                 // Perform a raycast to determine what the shot hit
-                if (Physics.Linecast(ev.Player.CameraTransform.position, ev.Player.CameraTransform.forward, out RaycastHit hit, PlayerLayerMask))
+                if (Physics.Raycast(ev.Player.CameraTransform.position, ev.Player.CameraTransform.forward, out RaycastHit hit, 100f, DoorLayerMask)) // New LayerMask, Linecast -> Raycast, longer cast
                 {
                     // Debug: Print the name of the hit object
                     Log.Debug($"Hit object: {hit.collider.name}");
 
-                    // Check if the hit object or its parents have a Door component
+                    // Old code
+                    /*// Check if the hit object or its parents have a Door component
                     Door door = hit.collider.GetComponent<Door>();
                     if (door == null)
                     {
@@ -157,8 +159,10 @@ namespace NGMainPlugin.Items
                     {
                         Log.Error("door is null");
                         return;
-                    }
+                    }*/
 
+                    // Search for DoorVariant in the collider
+                    Door door = Door.Get(hit.collider.GetComponentInParent<DoorVariant>());
                     if (door == null)
                     {
                         Log.Debug($"No Door component found on the hit object or its parents: {hit.collider.name}");
