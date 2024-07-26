@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace NGMainPlugin.Systems.SystemEvents
 {
-    public class Events
+    public static class Events
     {
+        public bool EventRound = false;
+
         public void Infection()
         {
         

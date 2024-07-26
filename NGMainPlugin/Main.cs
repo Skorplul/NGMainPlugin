@@ -78,6 +78,7 @@ namespace NGMainPlugin
             Server.RoundEnded += EventHandlers.OnRoundEnded;
             Server.WaitingForPlayers += EventHandlers.OnWaitingForPlayers;
             Server.RespawningTeam += SysEvHandler.Spawning;
+            Warhead.Starting += SysEvHandler.WarheadActivating;
 
             Server.RoundStarted += GayNukeHandler.OnRoundStart;
             Server.RoundEnded += GayNukeHandler.OnRoundEnd;
@@ -155,6 +156,7 @@ namespace NGMainPlugin
             Server.RoundEnded -= EventHandlers.OnRoundEnded;
             Server.WaitingForPlayers -= EventHandlers.OnWaitingForPlayers;
             Server.RespawningTeam -= SysEvHandler.Spawning;
+            Warhead.Starting -= SysEvHandler.WarheadActivating;
 
             Server.RoundStarted -= GayNukeHandler.OnRoundStart;
             Server.RoundEnded -= GayNukeHandler.OnRoundEnd;
